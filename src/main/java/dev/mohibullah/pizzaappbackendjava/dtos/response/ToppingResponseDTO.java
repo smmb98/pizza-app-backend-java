@@ -7,21 +7,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 //@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryResponseDTO {
+public class ToppingResponseDTO {
     private int id;
     private String name;
-
-    private List<SubCategory> subCategories = new ArrayList<>();
-    private List<Product> products = new ArrayList<>();
-    private List<Topping> toppings = new ArrayList<>();
-//}   private Optional<List<SubCategory>> subCategories;
-//    private Optional<List<Product>> products;
-//    private Optional<List<Topping>> toppings;
+    private Optional<List<SubCategory>> subCategories;
+    private Optional<List<Product>> products;
+    private Optional<List<Topping>> toppings;
 }

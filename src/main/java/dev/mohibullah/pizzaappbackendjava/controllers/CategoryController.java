@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/category")
 public class CategoryController {
     @PostMapping("addCategory")
-//    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CategoryResponseDTO> createCategory(@Valid @RequestBody CategoryRequestDTO categoryRequestDTO) {
 //        return new ResponseEntity<>(controllerService.createCategory(CategoryRequestDTO), HttpStatus.CREATED);
 
@@ -27,7 +26,6 @@ public class CategoryController {
     }
 
     @GetMapping("showCategories")
-//    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<BaseResponseDTO<CategoryResponseDTO>> showCategories(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                                                     @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         List<CategoryResponseDTO> categoryList = new ArrayList<>();
@@ -42,12 +40,32 @@ public class CategoryController {
 
 
 
-        BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
+        BaseResponseDTO<CategoryResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
         baseResponseDTO.setContent(categoryList);
         baseResponseDTO.setPageNo(pageNo);
         baseResponseDTO.setPageSize(pageSize);
         baseResponseDTO.setTotalPages(1);
+        baseResponseDTO.setTotalElements(categoryList.size());
         baseResponseDTO.setLast(true);
         return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("showCategoryById/{id}")
+    public ResponseEntity<CategoryResponseDTO> showCategoryById(@PathVariable("id") int categoryId) {
+        System.out.println(categoryId);
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+        categoryResponseDTO.setId(categoryId);
+        categoryResponseDTO.setName("Pizza Something");
+        System.out.println(categoryResponseDTO);
+        return new ResponseEntity<>(categoryResponseDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("updateCategory/{id}")
+    public ResponseEntity<CategoryResponseDTO> updateCategory(@Valid @RequestBody CategoryRequestDTO categoryRequestDTO, @PathVariable("id") int categoryId) {
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+        categoryResponseDTO.setId(categoryId);
+        categoryResponseDTO.setName(categoryRequestDTO.getName());
+        System.out.println(categoryResponseDTO);
+        return new ResponseEntity<>(categoryResponseDTO, HttpStatus.CREATED);
     }
 }
