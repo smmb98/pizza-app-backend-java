@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class SubCategoryRequestDTO {
     @NotBlank(message = "SubCategory name cannot be blank")
     @Pattern(regexp = "^[a-zA-Z ]+$", message = "SubCategory name must consist only of alphabetic characters.")
-    @Size(min = 2, max = 30, message = "SubCategory name exceeds 15 characters or is less than 2 characters")
+    @Size(min = 2, max = 30, message = "SubCategory name exceeds 30 characters or is less than 2 characters")
     private String name;
 
     @NotNull(message = "categoryId cannot be null")

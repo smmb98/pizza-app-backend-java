@@ -1,5 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,12 +10,8 @@ import lombok.NoArgsConstructor;
 //@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SizeRequestDTO {
-    @NotBlank(message = "Size measurement cannot be blank")
-    private String measurement;
-
-    @NotBlank(message = "Size description cannot be blank")
-    private String description;
-
-
+public class ForgotPasswordRequestDTO {
+    @NotBlank(message = "Email must not be blank")
+    @Email(message = "Email must be valid")
+    private String email;
 }

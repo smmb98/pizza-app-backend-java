@@ -52,7 +52,6 @@ public class SubCategoryController {
         System.out.println(subCategoryList);
 
 
-
         BaseResponseDTO<SubCategoryResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
         baseResponseDTO.setContent(subCategoryList);
         baseResponseDTO.setPageNo(pageNo);
