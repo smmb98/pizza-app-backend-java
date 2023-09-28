@@ -4,15 +4,16 @@ import dev.mohibullah.pizzaappbackendjava.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 @Entity
 public class Product extends Base {
     @Id
@@ -45,5 +46,5 @@ public class Product extends Base {
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<Products_Sizes_Prices>();
+    private List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<>();
 }

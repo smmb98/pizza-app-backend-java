@@ -1,6 +1,5 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
-import dev.mohibullah.pizzaappbackendjava.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,12 +10,16 @@ import java.time.LocalDateTime;
 //@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewResponseDTO {
-    private String description;
-    private int rating;
-    private User createdBy;
-    private User updatedBy;
+public class UserResponseDTO {
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String email;
+    private String mobileNo;
+    private String address;
+    private String stripeId;
+    private String role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Long id;
 }

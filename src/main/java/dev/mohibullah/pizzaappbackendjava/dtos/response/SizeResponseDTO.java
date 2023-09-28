@@ -1,24 +1,22 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
-import dev.mohibullah.pizzaappbackendjava.models.Product;
-import dev.mohibullah.pizzaappbackendjava.models.SubCategory;
-import dev.mohibullah.pizzaappbackendjava.models.Topping;
+import dev.mohibullah.pizzaappbackendjava.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Data
 //@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class SizeResponseDTO {
-    private int id;
-    private String name;
-
-    private Optional<List<SubCategory>> subCategories;
-    private Optional<List<Product>> products;
-    private Optional<List<Topping>> toppings;
+    private String measurement;
+    private String description;
+    private User createdBy;
+    private User updatedBy;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Long id;
 }

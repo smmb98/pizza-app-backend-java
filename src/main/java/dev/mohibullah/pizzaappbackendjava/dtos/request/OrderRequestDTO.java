@@ -1,6 +1,5 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.request;
 
-import dev.mohibullah.pizzaappbackendjava.dtos.OrderItemDTO;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequestDTO {
@@ -40,7 +38,7 @@ public class OrderRequestDTO {
 
     @NotNull(message = "Order items must be present")
     @Size(min = 1, message = "Order items array should have at least one element")
-    private List<OrderItemDTO> orderItems;
+    private List<OrderItemRequestDTO> orderItems;
 
 }
 

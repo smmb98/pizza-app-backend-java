@@ -1,22 +1,20 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.request;
 
-import dev.mohibullah.pizzaappbackendjava.dtos.request.customValidation.SizeIdConstraint;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import dev.mohibullah.pizzaappbackendjava.dtos.request.customValidation.annotations.CustomImage;
+import dev.mohibullah.pizzaappbackendjava.dtos.request.customValidation.annotations.CustomSizeIdConstraint;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductRequestDTO {
 
     @NotNull(message = "Product image is required")
+    @CustomImage(message = "ProductImage must be of type webp")
     private MultipartFile productImage;
 
     @NotEmpty(message = "Product name required")
@@ -25,19 +23,17 @@ public class ProductRequestDTO {
     @NotEmpty(message = "Description required")
     private String description;
 
-    @NotEmpty(message = "Image name required")
-    private String imageName;
-
-    @SizeIdConstraint // Custom validator for sizeId
+    @CustomSizeIdConstraint // Custom validator for sizeId
     private String sizeId;
     @NotNull(message = "Category ID required")
-    @Min(value = 1, message = "Category ID must be greater than or equal to 1")
-    private Long categoryId;
-
-    @Min(value = 1, message = "SubCategory ID must be greater than or equal to 1")
-    private Long subCategoryId;
+    @Pattern(regexp = "^[1-9]\\d*$", message = "Invalid CategoryId. Please enter a positive integer.")
+    private String categoryId;
+    @NotNull(message = "SubCategory ID required")
+    @Pattern(regexp = "^[1-9]\\d*$", message = "Invalid SubCategoryId. Please enter a positive integer.")
+    private String subCategoryId;
 
     @NotEmpty(message = "Status required")
+    @Pattern(regexp = "^(Active|InActive)$", message = "Wrong product status")
     private String status;
 
     @Data

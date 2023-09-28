@@ -1,6 +1,6 @@
-package dev.mohibullah.pizzaappbackendjava.dtos;
+package dev.mohibullah.pizzaappbackendjava.dtos.request;
 
-import dev.mohibullah.pizzaappbackendjava.dtos.request.customValidation.EntityIdValidation;
+import dev.mohibullah.pizzaappbackendjava.dtos.request.customValidation.annotations.CustomEntityIdValidation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -15,7 +15,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItemDTO {
+public class OrderItemRequestDTO {
     @NotBlank(message = "Invalid product name")
     private String productName;
 
@@ -29,7 +29,7 @@ public class OrderItemDTO {
 
     @NotNull(message = "Invalid topping")
     @Size(min = 1, message = "Empty topping not allowed")
-    @EntityIdValidation
+    @CustomEntityIdValidation
     private List<Map<String, Integer>> topping;
 
     @NotNull(message = "Invalid item quantity")
@@ -51,3 +51,4 @@ public class OrderItemDTO {
     private Double subTotalPrice;
 
 }
+

@@ -1,6 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.request;
 
-import dev.mohibullah.pizzaappbackendjava.dtos.request.customValidation.EntityIdValidation;
+import dev.mohibullah.pizzaappbackendjava.dtos.request.customValidation.annotations.CustomEntityIdValidation;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ToppingRequestDTO {
@@ -25,6 +24,6 @@ public class ToppingRequestDTO {
 
     @NotNull(message = "Categories must be present")
     @Size(min = 1, message = "Empty categories not allowed")
-    @EntityIdValidation
+    @CustomEntityIdValidation
     private List<Map<String, Integer>> categories;
 }

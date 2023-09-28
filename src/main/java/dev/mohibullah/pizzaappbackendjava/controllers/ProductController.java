@@ -23,10 +23,9 @@ import java.util.Objects;
 @RequestMapping("/api/product")
 public class ProductController {
     @PostMapping("addProduct")
-    public ResponseEntity createCategory(@Valid @ModelAttribute ProductRequestDTO productRequestDTO) {
+    public ResponseEntity createCategory(@Valid @ModelAttribute ProductRequestDTO productRequestDTO) throws IOException {
 //        return new ResponseEntity<>(controllerService.createCategory(CategoryRequestDTO), HttpStatus.CREATED);
 
-        try {
         MultipartFile productImage = productRequestDTO.getProductImage();
 
         // Validate image file type
@@ -34,16 +33,14 @@ public class ProductController {
             return ResponseEntity.badRequest().body("File type must be webp!");
         }
 
-            System.out.println(productRequestDTO.getName());
+        System.out.println(productRequestDTO.getName());
 
-//            String imageUUID = UUID.randomUUID().toString() + ".webp";
-//            File file = new File("src/main/resources/ProductImages/", imageUUID +".webp");
-            
-            File file = new File("src/main/resources/static/ProductImages/", productRequestDTO.getName() +".webp");
-            boolean fileCreated = file.createNewFile();
-            try (OutputStream os = new FileOutputStream(file)) {
-                os.write(productImage.getBytes());
-            }
+
+
+        File file = new File("src/main/resources/static/ProductImages/", productRequestDTO.getName() +".webp");
+        try (OutputStream os = new FileOutputStream(file)) {
+            os.write(productImage.getBytes());
+        }
 
 
 
@@ -58,11 +55,7 @@ public class ProductController {
 //
 //        System.out.println(subCategoryResponseDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Product added successfully");
-        } catch (IOException e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error");
 
-        }
     }
 
     @GetMapping("showSubCategories")
