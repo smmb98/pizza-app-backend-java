@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ReviewResponseDTO {
     private String description;
-    private int rating;
+    private Double rating;
     private User createdBy;
     private User updatedBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Long id;
+    private int id;
 }

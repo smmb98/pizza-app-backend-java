@@ -20,5 +20,5 @@ public class Review extends Base {
     private String description;
 
     @Column(precision = 5, nullable = false)
-    private Double ratings;
+    private Double rating;
 }

@@ -18,5 +18,5 @@ public class ReviewRequestDTO {
 
     @NotNull(message = "Review ratings cannot be null")
     @Positive(message = "Review ratings must be a positive number")
-    private Double ratings;
+    private Double rating;
 }
