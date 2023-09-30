@@ -19,7 +19,7 @@ public class UserResponseDTO {
     private String email;
     private String mobileNo;
     private String address;
-    private String stripeId;
+    //    private String stripeId;
     private String role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

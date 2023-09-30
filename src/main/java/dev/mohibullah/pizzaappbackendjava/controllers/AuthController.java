@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -33,7 +32,7 @@ public class AuthController {
         user.setLastName("Doe");
         user.setMobileNo("1234567");
         user.setRole("admin");
-        user.setStripeId("1234567");
+//        user.setStripeId("1234567");
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
         signInResponseDTO.setUser(user);
@@ -53,9 +52,9 @@ public class AuthController {
         userResponseDTO.setLastName(signUpRequestDTO.getLastName());
         userResponseDTO.setMobileNo(signUpRequestDTO.getMobileNo());
         userResponseDTO.setRole(signUpRequestDTO.getRole());
-        if (Objects.equals(signUpRequestDTO.getRole(), "customer")) {
-            userResponseDTO.setStripeId("1234567");
-        }
+//        if (Objects.equals(signUpRequestDTO.getRole(), "customer")) {
+//            userResponseDTO.setStripeId("1234567");
+//        }
         userResponseDTO.setCreatedAt(LocalDateTime.now());
         userResponseDTO.setUpdatedAt(LocalDateTime.now());
 
