@@ -3,6 +3,7 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.ToppingRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.ToppingResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,10 @@ public class ToppingController {
     @GetMapping("showToppings")
     public ResponseEntity<BaseResponseDTO<ToppingResponseDTO>> showToppings(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                                                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        if (pageNo <= 0 || pageSize <= 0) {
+            throw new InvalidPaginationException();
+        }
+
         List<ToppingResponseDTO> toppingList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {

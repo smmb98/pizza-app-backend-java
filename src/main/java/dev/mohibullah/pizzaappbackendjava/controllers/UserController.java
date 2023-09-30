@@ -3,6 +3,8 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.UpdateUserRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.UserResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidUserRoleParamException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,14 @@ public class UserController {
     public ResponseEntity<BaseResponseDTO<UserResponseDTO>> showUsers(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                                                       @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                                                       @RequestParam(value = "role", defaultValue = "customer") String role) {
+        if (pageNo <= 0 || pageSize <= 0) {
+            throw new InvalidPaginationException();
+        }
+
+        if (!role.equals("customer") && !role.equals("admin")) {
+            throw new InvalidUserRoleParamException();
+        }
+
         List<UserResponseDTO> userList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {

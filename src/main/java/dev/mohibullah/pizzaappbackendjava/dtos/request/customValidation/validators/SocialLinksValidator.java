@@ -20,7 +20,7 @@ public class SocialLinksValidator implements ConstraintValidator<CustomSocialLin
 
         String[] links = value.split(";");
 
-        if (links.length != 5){
+        if (links.length != 5) {
             return false;
         }
 
@@ -30,8 +30,10 @@ public class SocialLinksValidator implements ConstraintValidator<CustomSocialLin
         validLinkTypes.add("twitter");
         validLinkTypes.add("instagram");
 
-        for (String link : links) {
+        for (int i = 0; i < links.length - 1; i++) {
+            String link = links[i];
             if (!link.isEmpty() && !isValidSocialLink(link, validLinkTypes)) {
+                System.out.println("link is not empty and social link is not valid");
                 return false;
             }
         }
@@ -40,7 +42,12 @@ public class SocialLinksValidator implements ConstraintValidator<CustomSocialLin
     }
 
     private boolean isValidSocialLink(String link, Set<String> validLinkTypes) {
-        // Check if the link corresponds to one of the valid social link types
-        return validLinkTypes.contains(link.toLowerCase());
+        for (String linkType : validLinkTypes) {
+            if (link.contains(linkType)) {
+                return true;
+            }
+        }
+        return false;
     }
+
 }

@@ -3,6 +3,7 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.SizeRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.SizeResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,12 @@ public class SizeController {
 
     @GetMapping("showSizes")
     public ResponseEntity<BaseResponseDTO<SizeResponseDTO>> showSizes(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+                                                                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+        if (pageNo <= 0 || pageSize <= 0) {
+            throw new InvalidPaginationException();
+        }
+
         List<SizeResponseDTO> sizeList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -47,7 +53,6 @@ public class SizeController {
         System.out.println(sizeList);
 
 
-
         BaseResponseDTO<SizeResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
         baseResponseDTO.setContent(sizeList);
         baseResponseDTO.setPageNo(pageNo);
@@ -59,7 +64,7 @@ public class SizeController {
     }
 
 
-    @PutMapping ("updateSize/{id}")
+    @PutMapping("updateSize/{id}")
     public ResponseEntity<SizeResponseDTO> updateSize(@Valid @RequestBody SizeRequestDTO sizeRequestDTO, @PathVariable("id") int sizeId) {
 //        return new ResponseEntity<>(controllerService.createCategory(CategoryRequestDTO), HttpStatus.CREATED);
 

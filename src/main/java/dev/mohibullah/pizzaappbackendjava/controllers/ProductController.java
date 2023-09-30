@@ -6,6 +6,7 @@ import dev.mohibullah.pizzaappbackendjava.dtos.request.ProductRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.ProductResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.enums.Status;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
 import dev.mohibullah.pizzaappbackendjava.models.Products_Sizes_Prices;
 import dev.mohibullah.pizzaappbackendjava.models.Size;
@@ -86,6 +87,10 @@ public class ProductController {
     @GetMapping("showProducts")
     public ResponseEntity<BaseResponseDTO<ProductResponseDTO>> showProducts(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                                                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        if (pageNo <= 0 || pageSize <= 0) {
+            throw new InvalidPaginationException();
+        }
+
         List<ProductResponseDTO> productList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {

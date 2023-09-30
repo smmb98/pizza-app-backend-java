@@ -7,6 +7,7 @@ import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.OrderResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.enums.Stage;
 import dev.mohibullah.pizzaappbackendjava.enums.Status;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import dev.mohibullah.pizzaappbackendjava.models.OrderItem;
 import dev.mohibullah.pizzaappbackendjava.models.Product;
 import dev.mohibullah.pizzaappbackendjava.models.Size;
@@ -90,6 +91,10 @@ public class OrderController {
     @GetMapping("showOrders")
     public ResponseEntity<BaseResponseDTO<OrderResponseDTO>> showOrders(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                                                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        if (pageNo <= 0 || pageSize <= 0) {
+            throw new InvalidPaginationException();
+        }
+
         List<OrderResponseDTO> orderList = new ArrayList<>();
 
         for (int k = 0; k < 5; k++) {

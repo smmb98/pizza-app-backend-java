@@ -8,8 +8,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,36 @@ public class GlobalExceptionHandler {
         ex.printStackTrace();
         errorResponse.put("error", "An error occurred while saving image file.");
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR); // Use INTERNAL_SERVER_ERROR status (HTTP 500) for internal errors.
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<String> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        String errorMessage = "Invalid parameter value. " + ex.getMessage();
+        return ResponseEntity.badRequest().body(errorMessage);
+    }
+
+    @ExceptionHandler(InvalidPaginationException.class)
+    public ResponseEntity<ErrorObject> handlePaginationException(InvalidPaginationException ex) {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setMessage(ex.getMessage());
+        errorObject.setTimestamp(new Date());
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidSettingParamException.class)
+    public ResponseEntity<ErrorObject> handleInvalidSettingException(InvalidSettingParamException ex) {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setMessage(ex.getMessage());
+        errorObject.setTimestamp(new Date());
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidUserRoleParamException.class)
+    public ResponseEntity<ErrorObject> handleInvalidUserRoleParamException(InvalidUserRoleParamException ex) {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setMessage(ex.getMessage());
+        errorObject.setTimestamp(new Date());
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.BAD_REQUEST);
     }
 
 //    @ExceptionHandler(UserNotFoundException.class)

@@ -3,6 +3,7 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.ReviewRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.ReviewResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,12 @@ public class ReviewController {
 
     @GetMapping("showReviews")
     public ResponseEntity<BaseResponseDTO<ReviewResponseDTO>> showReviews(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+                                                                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+        if (pageNo <= 0 || pageSize <= 0) {
+            throw new InvalidPaginationException();
+        }
+        
         List<ReviewResponseDTO> reviewList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -44,7 +50,6 @@ public class ReviewController {
             reviewList.add(reviewResponseDTO);
         }
         System.out.println(reviewList);
-
 
 
         BaseResponseDTO<ReviewResponseDTO> baseResponseDTO = new BaseResponseDTO<>();

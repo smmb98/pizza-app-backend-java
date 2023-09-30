@@ -3,6 +3,7 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.CategoryRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.CategoryResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,13 @@ public class CategoryController {
 
     @GetMapping("showCategories")
     public ResponseEntity<BaseResponseDTO<CategoryResponseDTO>> showCategories(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                    @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+                                                                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+        if (pageNo <= 0 || pageSize <= 0) {
+            throw new InvalidPaginationException();
+        }
+
+
         List<CategoryResponseDTO> categoryList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -42,7 +49,6 @@ public class CategoryController {
             categoryList.add(categoryResponseDTO);
         }
         System.out.println(categoryList);
-
 
 
         BaseResponseDTO<CategoryResponseDTO> baseResponseDTO = new BaseResponseDTO<>();

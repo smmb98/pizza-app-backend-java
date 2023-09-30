@@ -4,6 +4,7 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.SubCategoryRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.SubCategoryResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,11 @@ public class SubCategoryController {
 
     @GetMapping("showSubCategories")
     public ResponseEntity<BaseResponseDTO<SubCategoryResponseDTO>> showSubCategories(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+                                                                                     @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        if (pageNo <= 0 || pageSize <= 0) {
+            throw new InvalidPaginationException();
+        }
+
         List<SubCategoryResponseDTO> subCategoryList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
