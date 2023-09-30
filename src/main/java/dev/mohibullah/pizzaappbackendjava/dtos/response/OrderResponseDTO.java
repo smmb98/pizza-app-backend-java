@@ -1,6 +1,7 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import dev.mohibullah.pizzaappbackendjava.enums.Stage;
 import dev.mohibullah.pizzaappbackendjava.models.OrderItem;
 import dev.mohibullah.pizzaappbackendjava.models.User;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class OrderResponseDTO {
     private Double discount;
     private Double totalPrice;
     private String paymentMethod;
-    private String orderStage;
+    private Stage orderStage;
     private String instruction;
     private User createdBy;
     private User updatedBy;

@@ -11,7 +11,9 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CustomEntityIdValidation {
-    String message() default "Categories must be present, an array, and contain positive integer 'id' values";
+    String message() default "Ids must be present, an array, and contain positive integer 'id' values";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

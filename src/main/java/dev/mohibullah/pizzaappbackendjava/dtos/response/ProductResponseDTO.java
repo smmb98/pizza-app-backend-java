@@ -1,6 +1,7 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import dev.mohibullah.pizzaappbackendjava.enums.Status;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
 import dev.mohibullah.pizzaappbackendjava.models.Products_Sizes_Prices;
 import dev.mohibullah.pizzaappbackendjava.models.SubCategory;
@@ -23,7 +24,7 @@ public class ProductResponseDTO {
     private String name;
     private String imageName;
     private String description;
-    private String status;
+    private Status status;
     private SubCategory subCategory;
     private Category category;
     private List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<>();

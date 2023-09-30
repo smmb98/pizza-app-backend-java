@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.ProductRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.ProductResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.enums.Status;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
 import dev.mohibullah.pizzaappbackendjava.models.Products_Sizes_Prices;
 import dev.mohibullah.pizzaappbackendjava.models.Size;
@@ -37,7 +38,7 @@ public class ProductController {
         productResponseDTO.setName(productRequestDTO.getName());
         productResponseDTO.setImageName(productRequestDTO.getName().replace(" ", "_") + ".webp");
         productResponseDTO.setDescription(productRequestDTO.getDescription());
-        productResponseDTO.setStatus("Active");
+        productResponseDTO.setStatus(Status.ACTIVE);
         ObjectMapper objectMapper = new ObjectMapper();
         List<ProductRequestDTO.SizeIdDTO> sizeIdList = objectMapper.readValue(
                 productRequestDTO.getSizeId(),
@@ -95,8 +96,7 @@ public class ProductController {
             productResponseDTO.setName("JAIN MASALA PIZZA");
             productResponseDTO.setImageName("JAIN_MASALA_PIZZA.webp");
             productResponseDTO.setDescription("Non-Garlic Onion Sauce, Cheese, Cilantro, Desi Achari Masala Sprinkled, Green Bell Pepper, Fresh Jalapeno");
-            productResponseDTO.setStatus("Active");
-            ObjectMapper objectMapper = new ObjectMapper();
+            productResponseDTO.setStatus(Status.ACTIVE);
             List<ProductRequestDTO.SizeIdDTO> sizeIdList = new ArrayList<>();
 
             sizeIdList.add(new ProductRequestDTO.SizeIdDTO(1, 12.0));
@@ -154,7 +154,7 @@ public class ProductController {
         productResponseDTO.setName(productRequestDTO.getName());
         productResponseDTO.setImageName(productRequestDTO.getName().replace(" ", "_") + ".webp");
         productResponseDTO.setDescription(productRequestDTO.getDescription());
-        productResponseDTO.setStatus(productRequestDTO.getStatus());
+        productResponseDTO.setStatus(Status.valueOf(productRequestDTO.getStatus()));
         ObjectMapper objectMapper = new ObjectMapper();
         List<ProductRequestDTO.SizeIdDTO> sizeIdList = objectMapper.readValue(
                 productRequestDTO.getSizeId(),

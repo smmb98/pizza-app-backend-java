@@ -25,6 +25,6 @@ public class ToppingRequestDTO {
 
     @NotNull(message = "Categories must be present")
     @Size(min = 1, message = "Empty categories not allowed")
-    @CustomEntityIdValidation
+    @CustomEntityIdValidation(message = "Categories must be present, an array, and contain positive integer 'id' values")
     private List<Map<String, Integer>> categories;
 }
