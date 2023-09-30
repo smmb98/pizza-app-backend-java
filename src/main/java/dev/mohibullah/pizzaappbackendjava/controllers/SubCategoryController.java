@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class SubCategoryController {
         SubCategoryResponseDTO subCategoryResponseDTO = new SubCategoryResponseDTO();
         subCategoryResponseDTO.setId(1);
         subCategoryResponseDTO.setName(subCategoryRequestDTO.getName());
-
+        subCategoryResponseDTO.setCreatedAt(LocalDateTime.now());
+        subCategoryResponseDTO.setUpdatedAt(LocalDateTime.now());
         Category category = new Category();
         category.setId(subCategoryRequestDTO.getCategoryId());
         category.setName("Pizza Something inside subcategory");
@@ -42,6 +44,8 @@ public class SubCategoryController {
             SubCategoryResponseDTO subCategoryResponseDTO = new SubCategoryResponseDTO();
             subCategoryResponseDTO.setId(i + 1);
             subCategoryResponseDTO.setName("Hardcoded SubCategory");
+            subCategoryResponseDTO.setCreatedAt(LocalDateTime.now());
+            subCategoryResponseDTO.setUpdatedAt(LocalDateTime.now());
             Category category = new Category();
             category.setId(i + 1);
             category.setName("Pizza Something inside subcategory");
@@ -67,7 +71,8 @@ public class SubCategoryController {
         SubCategoryResponseDTO subCategoryResponseDTO = new SubCategoryResponseDTO();
         subCategoryResponseDTO.setId(subCategoryId);
         subCategoryResponseDTO.setName(subCategoryRequestDTO.getName());
-
+        subCategoryResponseDTO.setCreatedAt(LocalDateTime.now());
+        subCategoryResponseDTO.setUpdatedAt(LocalDateTime.now());
         Category category = new Category();
         category.setId(subCategoryRequestDTO.getCategoryId());
         category.setName("Pizza Something inside subcategory");

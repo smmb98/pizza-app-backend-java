@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class CategoryController {
         CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
         categoryResponseDTO.setId(1);
         categoryResponseDTO.setName(categoryRequestDTO.getName());
+        categoryResponseDTO.setCreatedAt(LocalDateTime.now());
+        categoryResponseDTO.setUpdatedAt(LocalDateTime.now());
         System.out.println(categoryResponseDTO);
         return new ResponseEntity<>(categoryResponseDTO, HttpStatus.CREATED);
     }
@@ -34,6 +37,8 @@ public class CategoryController {
             CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
             categoryResponseDTO.setId(i + 1);
             categoryResponseDTO.setName("Hardcoded Category");
+            categoryResponseDTO.setCreatedAt(LocalDateTime.now());
+            categoryResponseDTO.setUpdatedAt(LocalDateTime.now());
             categoryList.add(categoryResponseDTO);
         }
         System.out.println(categoryList);
@@ -56,6 +61,8 @@ public class CategoryController {
         CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
         categoryResponseDTO.setId(categoryId);
         categoryResponseDTO.setName("Pizza Something");
+        categoryResponseDTO.setCreatedAt(LocalDateTime.now());
+        categoryResponseDTO.setUpdatedAt(LocalDateTime.now());
         System.out.println(categoryResponseDTO);
         return new ResponseEntity<>(categoryResponseDTO, HttpStatus.OK);
     }

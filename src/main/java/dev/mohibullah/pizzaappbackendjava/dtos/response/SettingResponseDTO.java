@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SettingResponseDTO {
-    private Long id;
+    private int id;
     private boolean reviewSetting;
     private boolean paymentMethod;
     private boolean appleIdSignIn;

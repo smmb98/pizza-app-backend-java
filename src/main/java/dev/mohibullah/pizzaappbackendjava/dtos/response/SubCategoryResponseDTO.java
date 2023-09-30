@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 //@Builder
 @AllArgsConstructor
@@ -13,5 +15,7 @@ public class SubCategoryResponseDTO {
     private int id;
     private String name;
     private Category category;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

@@ -18,5 +18,5 @@ public class SizeResponseDTO {
     private User updatedBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Long id;
+    private int id;
 }

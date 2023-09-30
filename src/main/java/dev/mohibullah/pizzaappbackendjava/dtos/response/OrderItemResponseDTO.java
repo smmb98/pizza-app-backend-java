@@ -17,7 +17,7 @@ import java.util.List;
 public class OrderItemResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Long id;
+    private int id;
     private Integer itemQty;
     private Double productPrice;
     private Double subTotalPrice;

@@ -21,5 +21,5 @@ public class ToppingResponseDTO {
     private User updatedBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Long id;
+    private int id;
 }
