@@ -1,5 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.mohibullah.pizzaappbackendjava.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -23,14 +25,12 @@ public class Product extends Base {
     @Column(nullable = false)
     private String name;
 
-    @Column(length = 2000,nullable = false)
+    @Column(length = 2000, nullable = false)
     private String description;
 
-//    @Column()
-//    private String imageName;
-//
-//    @Column()
-//    private String imageUUID;
+    @Column()
+    private String imageName;
+
 
     @Enumerated(EnumType.STRING)
 //    @Column(columnDefinition = "ENUM('ACTIVE', 'INACTIVE')", nullable = false)

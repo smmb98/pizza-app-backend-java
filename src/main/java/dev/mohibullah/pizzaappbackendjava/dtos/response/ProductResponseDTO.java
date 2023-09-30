@@ -1,5 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
 import dev.mohibullah.pizzaappbackendjava.models.Products_Sizes_Prices;
 import dev.mohibullah.pizzaappbackendjava.models.SubCategory;
@@ -12,14 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProductResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private int id;
     private String name;
+    private String imageName;
     private String description;
     private String status;
     private SubCategory subCategory;

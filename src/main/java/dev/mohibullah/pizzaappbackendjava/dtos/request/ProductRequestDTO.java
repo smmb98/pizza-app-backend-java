@@ -28,7 +28,6 @@ public class ProductRequestDTO {
     @NotNull(message = "Category ID required")
     @Pattern(regexp = "^[1-9]\\d*$", message = "Invalid CategoryId. Please enter a positive integer.")
     private String categoryId;
-    @NotNull(message = "SubCategory ID required")
     @Pattern(regexp = "^[1-9]\\d*$", message = "Invalid SubCategoryId. Please enter a positive integer.")
     private String subCategoryId;
 
@@ -42,7 +41,7 @@ public class ProductRequestDTO {
     public static class SizeIdDTO {
         @NotNull(message = "Size ID is required")
         @Min(value = 1, message = "Size ID must be greater than or equal to 1")
-        private Long id;
+        private Integer id;
 
         @NotNull(message = "Price is required")
         @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")

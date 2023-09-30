@@ -1,5 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
 import dev.mohibullah.pizzaappbackendjava.models.User;
 import lombok.AllArgsConstructor;
@@ -10,9 +11,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ToppingResponseDTO {
     private String name;
     private Double price;

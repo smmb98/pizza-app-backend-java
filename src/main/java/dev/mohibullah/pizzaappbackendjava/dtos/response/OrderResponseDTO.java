@@ -1,5 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.mohibullah.pizzaappbackendjava.models.OrderItem;
 import dev.mohibullah.pizzaappbackendjava.models.User;
 import lombok.AllArgsConstructor;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class OrderResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -42,7 +42,7 @@ public class ToppingController {
 
     @GetMapping("showToppings")
     public ResponseEntity<BaseResponseDTO<ToppingResponseDTO>> showToppings(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+                                                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         List<ToppingResponseDTO> toppingList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -70,7 +70,6 @@ public class ToppingController {
         System.out.println(toppingList);
 
 
-
         BaseResponseDTO<ToppingResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
         baseResponseDTO.setContent(toppingList);
         baseResponseDTO.setPageNo(pageNo);
@@ -82,7 +81,7 @@ public class ToppingController {
     }
 
 
-    @PutMapping ("updateTopping/{id}")
+    @PutMapping("updateTopping/{id}")
     public ResponseEntity<ToppingResponseDTO> updateTopping(@Valid @RequestBody ToppingRequestDTO toppingRequestDTO, @PathVariable("id") int toppingId) {
 //        return new ResponseEntity<>(controllerService.createCategory(CategoryRequestDTO), HttpStatus.CREATED);
 
