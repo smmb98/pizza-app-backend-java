@@ -1,0 +1,1822 @@
+{
+	"info": {
+		"_postman_id": "5bc07296-43ba-4a54-b732-014c97f36164",
+		"name": "Hot_Pizza_APIs_V3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20545708"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@gmail.com\",\n    \"password\": \"Abc123$%^\",\n    \"role\":\"customer\",\n    \"firstName\": \"John\", \n    \"lastName\": \"Snow\",  \n    \"mobileNo\": 1031231231,\n    \"signupType\": \"customer app\",\n    \"address\": \"A-123, Block 'B', XZY Area.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@pizzaapp.com\",\n    \"password\": \"Admin123$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Fetch All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/user/fetchUsers?page=1&pageSize=10&role=admin&role=customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"fetchUsers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "role",
+									"value": "admin"
+								},
+								{
+									"key": "role",
+									"value": "customer"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/forgotpassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"forgotpassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Info",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"John@Snow.com\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Snow\",\r\n    \"mobileNo\": 1031231231,\r\n    \"address\": \"A-123, Block 'B', XZY Area.\",\r\n    \"password\": \"Itretina123$\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/updateUserInfo/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"updateUserInfo",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Insert Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pizza\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/category/addCategory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"category",
+								"addCategory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Insert Category",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Pizza\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/category/addCategory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"category",
+										"addCategory"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "951"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3b7-zJlKTxLlUmOcbf3o4t/g3e8MEog\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Sep 2023 06:38:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"Pizza\",\n    \"createdBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"237f392817af1642d98d368792b9bb57218e6d71f3104f9ed13ce618d7f14a11e722d262b458e308f1f0ca84005000de62723b89ae489d67e344ee2fd9d1b17b.9acf1172bf1d9d90\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"signupType\": \"Default\",\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-16T04:17:38.218Z\",\n        \"updatedAt\": \"2023-08-16T04:17:38.218Z\"\n    },\n    \"updatedBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"237f392817af1642d98d368792b9bb57218e6d71f3104f9ed13ce618d7f14a11e722d262b458e308f1f0ca84005000de62723b89ae489d67e344ee2fd9d1b17b.9acf1172bf1d9d90\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"signupType\": \"Default\",\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-16T04:17:38.218Z\",\n        \"updatedAt\": \"2023-08-16T04:17:38.218Z\"\n    },\n    \"createdAt\": \"2023-09-28T06:38:26.337Z\",\n    \"updatedAt\": \"2023-09-28T06:38:26.337Z\",\n    \"id\": 5\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch All Categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/category/showCategories?page=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"category",
+								"showCategories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Category By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/category/showCategoryById/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"category",
+								"showCategoryById",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Burgers\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/category/updateCategory/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"category",
+								"updateCategory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sub-Category",
+			"item": [
+				{
+					"name": "Insert Sub-Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Veggie Pizza Platter \",\r\n    \"categoryId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subCategory/addSubCategory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subCategory",
+								"addSubCategory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Insert Sub-Category",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Veggie Pizza Platter \",\r\n    \"categoryId\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/subCategory/addSubCategory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"subCategory",
+										"addSubCategory"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1079"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"437-5AA2P4i7hp/Om7VOIqs/ALvjB24\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Sep 2023 06:38:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"Veggie Pizza Platter\",\n    \"category\": {\n        \"createdAt\": \"2023-09-28T06:38:24.100Z\",\n        \"updatedAt\": \"2023-09-28T06:38:24.100Z\",\n        \"id\": 1,\n        \"name\": \"Pizza\"\n    },\n    \"createdBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"237f392817af1642d98d368792b9bb57218e6d71f3104f9ed13ce618d7f14a11e722d262b458e308f1f0ca84005000de62723b89ae489d67e344ee2fd9d1b17b.9acf1172bf1d9d90\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"signupType\": \"Default\",\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-16T04:17:38.218Z\",\n        \"updatedAt\": \"2023-08-16T04:17:38.218Z\"\n    },\n    \"updatedBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"237f392817af1642d98d368792b9bb57218e6d71f3104f9ed13ce618d7f14a11e722d262b458e308f1f0ca84005000de62723b89ae489d67e344ee2fd9d1b17b.9acf1172bf1d9d90\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"signupType\": \"Default\",\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-16T04:17:38.218Z\",\n        \"updatedAt\": \"2023-08-16T04:17:38.218Z\"\n    },\n    \"createdAt\": \"2023-09-28T06:38:32.652Z\",\n    \"updatedAt\": \"2023-09-28T06:38:32.652Z\",\n    \"id\": 7\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch All Sub-Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/subCategory/showSubCategories?page=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subCategory",
+								"showSubCategories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Sub-Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Zestful Paneer Products\",\r\n    \"categoryId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subCategory/updateSubCategory/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subCategory",
+								"updateSubCategory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Insert Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "JAIN MASALA PIZZA",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Non-Garlic Onion Sauce, Cheese, Cilantro, Desi Achari Masala Sprinkled, Green Bell Pepper, Fresh Jalapeno",
+									"type": "default"
+								},
+								{
+									"key": "imageName",
+									"value": "image",
+									"type": "default"
+								},
+								{
+									"key": "productImage",
+									"type": "file",
+									"src": "/C:/Users/ESHOP/Documents/GitHub/pizza-app-backend/public/LOGO/Default_Logo.webp"
+								},
+								{
+									"key": "sizeId",
+									"value": "[{\"id\": 1,\"price\":12},{\"id\": 2,\"price\":2}]",
+									"type": "default"
+								},
+								{
+									"key": "categoryId",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "subCategoryId",
+									"value": "1",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "\"Active\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/product/addProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"addProduct"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Insert Product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "JAIN MASALA PIZZA",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Non-Garlic Onion Sauce, Cheese, Cilantro, Desi Achari Masala Sprinkled, Green Bell Pepper, Fresh Jalapeno",
+											"type": "text"
+										},
+										{
+											"key": "imageName",
+											"value": "image",
+											"type": "text"
+										},
+										{
+											"key": "sizeId",
+											"value": "[{\"id\": 1,\"price\":12},{\"id\": 2,\"price\":2}]",
+											"type": "text"
+										},
+										{
+											"key": "categoryId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "subCategoryId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "\"Active\"",
+											"type": "text"
+										},
+										{
+											"key": "productImage",
+											"type": "file",
+											"src": "/C:/Users/mohib/OneDrive/Documents/GitHub/pizza-app-backend/public/LOGO/Default_Logo.webp"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/product/addProduct",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"product",
+										"addProduct"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1062"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"426-9evXWP+mUfZ6SeSOadMaXSwB8s4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Sep 2023 06:39:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"createdAt\": \"2023-09-28T06:39:23.276Z\",\n    \"updatedAt\": \"2023-09-28T06:39:23.276Z\",\n    \"id\": 1,\n    \"name\": \"JAIN MASALA PIZZA\",\n    \"description\": \"Non-Garlic Onion Sauce, Cheese, Cilantro, Desi Achari Masala Sprinkled, Green Bell Pepper, Fresh Jalapeno\",\n    \"status\": \"Active\",\n    \"imageName\": \"image\",\n    \"imageUUID\": \"c4435a794480541d6fc4578aaa2d56fa.webp\",\n    \"subCategory\": {\n        \"createdAt\": \"2023-09-28T06:38:29.804Z\",\n        \"updatedAt\": \"2023-09-28T06:38:29.804Z\",\n        \"id\": 1,\n        \"name\": \"Veggie Pizza Platter\"\n    },\n    \"category\": {\n        \"createdAt\": \"2023-09-28T06:38:24.100Z\",\n        \"updatedAt\": \"2023-09-28T06:38:24.100Z\",\n        \"id\": 1,\n        \"name\": \"Pizza\"\n    },\n    \"productsSizesPrices\": [\n        {\n            \"createdAt\": \"2023-09-28T06:39:23.279Z\",\n            \"updatedAt\": \"2023-09-28T06:39:23.279Z\",\n            \"id\": 1,\n            \"price\": 12,\n            \"size\": {\n                \"createdAt\": \"2023-09-28T06:38:59.248Z\",\n                \"updatedAt\": \"2023-09-28T06:38:59.248Z\",\n                \"id\": 1,\n                \"measurement\": \"16\",\n                \"description\": \"X-Large\"\n            }\n        },\n        {\n            \"createdAt\": \"2023-09-28T06:39:23.284Z\",\n            \"updatedAt\": \"2023-09-28T06:39:23.284Z\",\n            \"id\": 2,\n            \"price\": 2,\n            \"size\": {\n                \"createdAt\": \"2023-09-28T06:39:01.397Z\",\n                \"updatedAt\": \"2023-09-28T06:39:01.397Z\",\n                \"id\": 2,\n                \"measurement\": \"16\",\n                \"description\": \"X-Large\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch All Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/product/showProducts?page=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"showProducts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "JAIN MASALA PIZZA",
+									"type": "default"
+								},
+								{
+									"key": "status",
+									"value": "InActive",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Non-Garlic Onion Sauce, Cheese, Cilantro, Desi Achari Masala Sprinkled, Green Bell Pepper, Fresh Jalapenos",
+									"type": "default"
+								},
+								{
+									"key": "imageName",
+									"value": "image",
+									"type": "default"
+								},
+								{
+									"key": "productImage",
+									"type": "file",
+									"src": "/C:/Users/ESHOP/Documents/GitHub/pizza-app-backend/public/LOGO/Default_Logo.webp"
+								},
+								{
+									"key": "sizeId",
+									"value": "[{\"id\": 1,\"price\":12},{\"id\": 2,\"price\":22}]",
+									"type": "default"
+								},
+								{
+									"key": "categoryId",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "subCategoryId",
+									"value": "1",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/product/updateProduct/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"updateProduct",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Size",
+			"item": [
+				{
+					"name": "Insert Size",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"measurement\": \"16\",\r\n    \"description\": \"X-Large\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/size/addSize",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"size",
+								"addSize"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Insert Size",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"measurement\": \"16\",\r\n    \"description\": \"X-Large\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/size/addSize",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"size",
+										"addSize"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "979"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d3-Za/DFNfm7Fio9wxGX2K2mkwkJeg\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Sep 2023 06:39:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"measurement\": \"16\",\n    \"description\": \"X-Large\",\n    \"createdBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"237f392817af1642d98d368792b9bb57218e6d71f3104f9ed13ce618d7f14a11e722d262b458e308f1f0ca84005000de62723b89ae489d67e344ee2fd9d1b17b.9acf1172bf1d9d90\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"signupType\": \"Default\",\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-16T04:17:38.218Z\",\n        \"updatedAt\": \"2023-08-16T04:17:38.218Z\"\n    },\n    \"updatedBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"237f392817af1642d98d368792b9bb57218e6d71f3104f9ed13ce618d7f14a11e722d262b458e308f1f0ca84005000de62723b89ae489d67e344ee2fd9d1b17b.9acf1172bf1d9d90\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"signupType\": \"Default\",\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-16T04:17:38.218Z\",\n        \"updatedAt\": \"2023-08-16T04:17:38.218Z\"\n    },\n    \"createdAt\": \"2023-09-28T06:39:02.910Z\",\n    \"updatedAt\": \"2023-09-28T06:39:02.910Z\",\n    \"id\": 5\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch All Sizes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/size/showSizes?page=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"size",
+								"showSizes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Size",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"measurement\": \"162\",\r\n    \"description\": \"X-Large\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/size/updateSize/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"size",
+								"updateSize",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Toppings",
+			"item": [
+				{
+					"name": "Insert Toppings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fresh Jalapeno Marinara Sauce\",\n    \"price\": 5,\n    \"categories\": [\n        {\n            \"id\": 1\n        },\n        {\n            \"id\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/topping/addTopping",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topping",
+								"addTopping"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Insert Toppings",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Fresh Jalapeno Marinara Sauce\",\n    \"price\": 5,\n    \"categories\": [\n        {\n            \"id\": 1\n        },\n        {\n            \"id\": 2\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/topping/addTopping",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"topping",
+										"addTopping"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1204"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4b4-NVVu+i+R6efn1IXFfQzNY9j1MAo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Sep 2023 06:39:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"Fresh Jalapeno Marinara Sauce\",\n    \"price\": 5,\n    \"categories\": [\n        {\n            \"createdAt\": \"2023-09-28T06:38:24.100Z\",\n            \"updatedAt\": \"2023-09-28T06:38:24.100Z\",\n            \"id\": 1,\n            \"name\": \"Pizza\"\n        },\n        {\n            \"createdAt\": \"2023-09-28T06:38:24.701Z\",\n            \"updatedAt\": \"2023-09-28T06:38:24.701Z\",\n            \"id\": 2,\n            \"name\": \"Pizza\"\n        }\n    ],\n    \"createdBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"237f392817af1642d98d368792b9bb57218e6d71f3104f9ed13ce618d7f14a11e722d262b458e308f1f0ca84005000de62723b89ae489d67e344ee2fd9d1b17b.9acf1172bf1d9d90\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"signupType\": \"Default\",\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-16T04:17:38.218Z\",\n        \"updatedAt\": \"2023-08-16T04:17:38.218Z\"\n    },\n    \"updatedBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"237f392817af1642d98d368792b9bb57218e6d71f3104f9ed13ce618d7f14a11e722d262b458e308f1f0ca84005000de62723b89ae489d67e344ee2fd9d1b17b.9acf1172bf1d9d90\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"signupType\": \"Default\",\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-16T04:17:38.218Z\",\n        \"updatedAt\": \"2023-08-16T04:17:38.218Z\"\n    },\n    \"createdAt\": \"2023-09-28T06:39:12.527Z\",\n    \"updatedAt\": \"2023-09-28T06:39:12.527Z\",\n    \"id\": 4\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch All Toppings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/topping/showToppings?page=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topping",
+								"showToppings"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Topping",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \" Marinara Sauce\",\r\n    \"price\": 5,\r\n    \"categories\": [\r\n        {\r\n            \"id\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/topping/updateTopping/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topping",
+								"updateTopping",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Insert Orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deliveryCost\": 50.0,\n    \"deliveryAddress\": \"R-43 Gulzar-e-Hijri scheme-30\",\n    \"discount\": 0,\n    \"orderPrice\": 7.19,\n    \"totalPrice\": 57.19,\n    \"paymentMethod\": \"VISA Card\",\n    \"instruction\": \"Adds extra cheese,toppings with extra\",\n    \"orderItems\": [\n        {\n            \"productName\": \"JAIN MASALA PIZZA\",\n            \"product\": 1,\n            \"productPrice\": 12,\n            \"topping\": [\n                {\n                    \"id\": 1\n                },\n                {\n                    \"id\": 2\n                }\n            ],\n            \"itemQty\": 1,\n            \"size\": 1,\n            \"sizeMeasurement\": \"16\",\n            \"sizeDescription\": \"X-Large\",\n            \"subTotalPrice\": 7.19\n        },\n        {\n            \"productName\": \"JAIN MASALA PIZZA\",\n            \"product\": 2,\n            \"productPrice\": 12,\n            \"topping\": [\n                {\n                    \"id\": 1\n                }\n            ],\n            \"itemQty\": 4,\n            \"size\": 3,\n            \"sizeMeasurement\": \"16\",\n            \"sizeDescription\": \"X-Large\",\n            \"subTotalPrice\": 14.5\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/order/addOrder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"order",
+								"addOrder"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Insert Orders",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"deliveryCost\": 50.0,\n    \"deliveryAddress\": \"R-43 Gulzar-e-Hijri scheme-30\",\n    \"discount\": 0,\n    \"orderPrice\": 7.19,\n    \"totalPrice\": 57.19,\n    \"paymentMethod\": \"VISA Card\",\n    \"instruction\": \"Adds extra cheese,toppings with extra\",\n    \"orderItems\": [\n        {\n            \"productName\": \"JAIN MASALA PIZZA\",\n            \"product\": 1,\n            \"productPrice\": 12,\n            \"topping\": [\n                {\n                    \"id\": 1\n                },\n                {\n                    \"id\": 2\n                }\n            ],\n            \"itemQty\": 1,\n            \"size\": 1,\n            \"sizeMeasurement\": \"16\",\n            \"sizeDescription\": \"X-Large\",\n            \"subTotalPrice\": 7.19\n        },\n        {\n            \"productName\": \"JAIN MASALA PIZZA\",\n            \"product\": 2,\n            \"productPrice\": 12,\n            \"topping\": [\n                {\n                    \"id\": 1\n                }\n            ],\n            \"itemQty\": 4,\n            \"size\": 3,\n            \"sizeMeasurement\": \"16\",\n            \"sizeDescription\": \"X-Large\",\n            \"subTotalPrice\": 14.5\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/order/addOrder",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"order",
+										"addOrder"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2956"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b8c-HhuhXdLztQLvPesilc9vW0cX/ps\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Sep 2023 10:27:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"createdAt\": \"2023-09-28T10:27:01.101Z\",\n    \"updatedAt\": \"2023-09-28T10:27:01.101Z\",\n    \"id\": 3,\n    \"deliveryAddress\": \"R-43 Gulzar-e-Hijri scheme-30\",\n    \"orderPrice\": 7.19,\n    \"deliveryCost\": 50,\n    \"discount\": 0,\n    \"totalPrice\": 57.19,\n    \"paymentMethod\": \"VISA Card\",\n    \"orderStage\": \"Order Placed\",\n    \"instruction\": \"Adds extra cheese,toppings with extra\",\n    \"createdBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"41eb10e78406ed04986df6108ca24362354680a53f561bafbec432863c2b2afb55aa46ca2d976a99a65aca2cd36e41d8695d703c2eefe28bb6fb424e0bd0f711.1ffd428873f11fc2\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-24T12:40:23.764Z\",\n        \"updatedAt\": \"2023-08-24T12:40:23.764Z\"\n    },\n    \"updatedBy\": {\n        \"id\": 1,\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"password\": \"41eb10e78406ed04986df6108ca24362354680a53f561bafbec432863c2b2afb55aa46ca2d976a99a65aca2cd36e41d8695d703c2eefe28bb6fb424e0bd0f711.1ffd428873f11fc2\",\n        \"email\": \"admin@pizzaapp.com\",\n        \"mobileNo\": \"0000000000\",\n        \"address\": \"hotpizza\",\n        \"stripeId\": null,\n        \"role\": \"admin\",\n        \"createdAt\": \"2023-08-24T12:40:23.764Z\",\n        \"updatedAt\": \"2023-08-24T12:40:23.764Z\"\n    },\n    \"orderItem\": [\n        {\n            \"createdAt\": \"2023-09-28T10:27:01.104Z\",\n            \"updatedAt\": \"2023-09-28T10:27:01.104Z\",\n            \"id\": 5,\n            \"itemQty\": 1,\n            \"productPrice\": 12,\n            \"subTotalPrice\": 7.19,\n            \"sizeMeasurement\": \"16\",\n            \"sizeDescription\": \"X-Large\",\n            \"productName\": \"JAIN MASALA PIZZA\",\n            \"topping\": [\n                {\n                    \"createdAt\": \"2023-09-28T06:39:10.605Z\",\n                    \"updatedAt\": \"2023-09-28T06:39:10.605Z\",\n                    \"id\": 1,\n                    \"name\": \"Fresh Jalapeno Marinara Sauce\",\n                    \"price\": 5\n                },\n                {\n                    \"createdAt\": \"2023-09-28T06:39:11.286Z\",\n                    \"updatedAt\": \"2023-09-28T06:39:11.286Z\",\n                    \"id\": 2,\n                    \"name\": \"Fresh Jalapeno Marinara Sauce\",\n                    \"price\": 5\n                }\n            ],\n            \"product\": {\n                \"createdAt\": \"2023-09-28T06:39:23.276Z\",\n                \"updatedAt\": \"2023-09-28T06:39:23.276Z\",\n                \"id\": 1,\n                \"name\": \"JAIN MASALA PIZZA\",\n                \"description\": \"Non-Garlic Onion Sauce, Cheese, Cilantro, Desi Achari Masala Sprinkled, Green Bell Pepper, Fresh Jalapeno\",\n                \"status\": \"Active\",\n                \"imageName\": \"image\",\n                \"imageUUID\": \"c4435a794480541d6fc4578aaa2d56fa.webp\"\n            },\n            \"size\": {\n                \"createdAt\": \"2023-09-28T06:38:59.248Z\",\n                \"updatedAt\": \"2023-09-28T06:38:59.248Z\",\n                \"id\": 1,\n                \"measurement\": \"16\",\n                \"description\": \"X-Large\"\n            }\n        },\n        {\n            \"createdAt\": \"2023-09-28T10:27:01.104Z\",\n            \"updatedAt\": \"2023-09-28T10:27:01.104Z\",\n            \"id\": 6,\n            \"itemQty\": 4,\n            \"productPrice\": 12,\n            \"subTotalPrice\": 14.5,\n            \"sizeMeasurement\": \"16\",\n            \"sizeDescription\": \"X-Large\",\n            \"productName\": \"JAIN MASALA PIZZA\",\n            \"topping\": [\n                {\n                    \"createdAt\": \"2023-09-28T06:39:10.605Z\",\n                    \"updatedAt\": \"2023-09-28T06:39:10.605Z\",\n                    \"id\": 1,\n                    \"name\": \"Fresh Jalapeno Marinara Sauce\",\n                    \"price\": 5\n                }\n            ],\n            \"product\": {\n                \"createdAt\": \"2023-09-28T10:26:53.352Z\",\n                \"updatedAt\": \"2023-09-28T10:26:53.352Z\",\n                \"id\": 2,\n                \"name\": \"JAIN MASALA PIZZA\",\n                \"description\": \"Non-Garlic Onion Sauce, Cheese, Cilantro, Desi Achari Masala Sprinkled, Green Bell Pepper, Fresh Jalapeno\",\n                \"status\": \"Active\",\n                \"imageName\": \"image\",\n                \"imageUUID\": \"3e0ee3eef57f1c364f2bfce66c8b5e03.webp\"\n            },\n            \"size\": {\n                \"createdAt\": \"2023-09-28T06:39:01.945Z\",\n                \"updatedAt\": \"2023-09-28T06:39:01.945Z\",\n                \"id\": 3,\n                \"measurement\": \"16\",\n                \"description\": \"X-Large\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch All Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/order/showOrders?page=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"order",
+								"showOrders"
+							],
+							"query": [
+								{
+									"key": "stage",
+									"value": "current",
+									"disabled": true
+								},
+								{
+									"key": "stage",
+									"value": "past",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update order status of Orders",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderStatus\": \"Cancelled\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/order/updateOrderStatus/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"order",
+								"updateOrderStatus",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Update Settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "reviewSetting",
+									"value": "false",
+									"type": "default"
+								},
+								{
+									"key": "paymentMethod",
+									"value": "true",
+									"type": "default"
+								},
+								{
+									"key": "appleIdSignIn",
+									"value": "true",
+									"type": "default"
+								},
+								{
+									"key": "googleIdSignIn",
+									"value": "true",
+									"type": "default"
+								},
+								{
+									"key": "currency",
+									"value": "$",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_contactNos",
+									"value": "00000000",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_description",
+									"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel ornare orci. Ut consequat sapien ante, a posuere justo fermentum sed. Etiam euismod malesuada urna nec efficitur. Phasellus nec justo sit amet justo volutpat gravida. Morbi tristique euismod nisi, sit amet vulputate augue viverra nec. Maecenas a metus at arcu pulvinar venenatis vel nec nibh.",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_timings",
+									"value": "01:00;23:00",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_socialLinks",
+									"value": "https://www.facebook.com/pizza-app;https://www.youtube.com/@pizza-app;https://twitter.com/pizza-app;https://www.instagram.com/pizza-app;https://www.pizza-app.com",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_cuisines",
+									"value": "Restaurant's Cuisines here*",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_location",
+									"value": "Restaurant's Location here*",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_name",
+									"value": "Restaurant's Name here*",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_LOGO_Name",
+									"value": "Default",
+									"type": "default"
+								},
+								{
+									"key": "restaurant_LOGO",
+									"type": "file",
+									"src": "/C:/Users/mohib/OneDrive/Documents/GitHub/pizza-app-backend/public/LOGO/Default_Logo.webp"
+								},
+								{
+									"key": "restaurant_SplashImage",
+									"type": "file",
+									"src": "/C:/Users/ESHOP/Documents/GitHub/pizza-app-backend/public/SplashScreen/Default_SplashImage.webp"
+								},
+								{
+									"key": "restaurant_SplashImage_Name",
+									"value": "Default",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/setting/updateSettings/1?setting=restaurant_info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"setting",
+								"updateSettings",
+								"1"
+							],
+							"query": [
+								{
+									"key": "setting",
+									"value": "app_setting",
+									"disabled": true
+								},
+								{
+									"key": "setting",
+									"value": "restaurant_info"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Settings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/setting/showSettings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"setting",
+								"showSettings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Insert Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"Late delivery\",\r\n    \"rating\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/review/addReview",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								"addReview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch All Reviews",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/review/showReviews?page=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								"showReviews"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Fetch Dashboard's orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/dashboard/analytics?startDate=2023-01-01T00:00:00.000Z&endDate=3023-04-01T00:00:00.000Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dashboard",
+								"analytics"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2023-01-01T00:00:00.000Z"
+								},
+								{
+									"key": "endDate",
+									"value": "3023-04-01T00:00:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
