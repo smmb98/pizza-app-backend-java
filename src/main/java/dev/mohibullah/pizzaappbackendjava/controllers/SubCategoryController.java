@@ -2,7 +2,7 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 
 
 import dev.mohibullah.pizzaappbackendjava.dtos.request.SubCategoryRequestDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.SubCategoryResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
@@ -37,9 +37,9 @@ public class SubCategoryController {
     }
 
     @GetMapping("showSubCategories")
-    public ResponseEntity<BaseResponseDTO<SubCategoryResponseDTO>> showSubCategories(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                                     @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        if (pageNo <= 0 || pageSize <= 0) {
+    public ResponseEntity<BaseShowAllResponseDTO<SubCategoryResponseDTO>> showSubCategories(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        if (page < 0 || pageSize < 0) {
             throw new InvalidPaginationException();
         }
 
@@ -61,14 +61,14 @@ public class SubCategoryController {
         System.out.println(subCategoryList);
 
 
-        BaseResponseDTO<SubCategoryResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
-        baseResponseDTO.setContent(subCategoryList);
-        baseResponseDTO.setPageNo(pageNo);
-        baseResponseDTO.setPageSize(pageSize);
-        baseResponseDTO.setTotalPages(1);
-        baseResponseDTO.setTotalElements(subCategoryList.size());
-        baseResponseDTO.setLast(true);
-        return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
+        BaseShowAllResponseDTO<SubCategoryResponseDTO> baseShowAllResponseDTO = new BaseShowAllResponseDTO<>();
+        baseShowAllResponseDTO.setContent(subCategoryList);
+        baseShowAllResponseDTO.setPage(page);
+        baseShowAllResponseDTO.setPageSize(pageSize);
+        baseShowAllResponseDTO.setTotalPages(1);
+        baseShowAllResponseDTO.setTotalElements(subCategoryList.size());
+        baseShowAllResponseDTO.setLast(true);
+        return new ResponseEntity<>(baseShowAllResponseDTO, HttpStatus.OK);
     }
 
     @PutMapping("updateSubCategory/{id}")

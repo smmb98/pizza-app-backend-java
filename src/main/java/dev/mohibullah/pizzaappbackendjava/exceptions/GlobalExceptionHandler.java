@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.io.IOException;
-import java.util.Date;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,56 +40,68 @@ public class GlobalExceptionHandler {
         Map<String, String> errorResponse = new HashMap<>();
         ex.printStackTrace();
         errorResponse.put("error", "An error occurred while saving image file.");
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR); // Use INTERNAL_SERVER_ERROR status (HTTP 500) for internal errors.
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<String> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
-        String errorMessage = "Invalid parameter value. " + ex.getMessage();
-        return ResponseEntity.badRequest().body(errorMessage);
+    public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "Invalid parameter value. " + ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidPaginationException.class)
-    public ResponseEntity<ErrorObject> handlePaginationException(InvalidPaginationException ex) {
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setMessage(ex.getMessage());
-        errorObject.setTimestamp(new Date());
-        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String, String>> handlePaginationException(InvalidPaginationException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidSettingParamException.class)
-    public ResponseEntity<ErrorObject> handleInvalidSettingException(InvalidSettingParamException ex) {
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setMessage(ex.getMessage());
-        errorObject.setTimestamp(new Date());
-        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String, String>> handleInvalidSettingException(InvalidSettingParamException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidUserRoleParamException.class)
-    public ResponseEntity<ErrorObject> handleInvalidUserRoleParamException(InvalidUserRoleParamException ex) {
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setMessage(ex.getMessage());
-        errorObject.setTimestamp(new Date());
-        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String, String>> handleInvalidUserRoleParamException(InvalidUserRoleParamException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleItemNotFoundException(ItemNotFoundException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmptyItemsListException.class)
+    public ResponseEntity<Map<String, String>> handleEmptyItemsListException(EmptyItemsListException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    //    @ExceptionHandler(UserNotFoundException.class)
 //    public ResponseEntity<Map<String, List<String>>> handleNotFoundException(UserNotFoundException ex) {
 //        List<String> errors = Collections.singletonList(ex.getMessage());
 //        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.NOT_FOUND);
 //    }
 //
-//    @ExceptionHandler(Exception.class)
-//    public final ResponseEntity<Map<String, List<String>>> handleGeneralExceptions(Exception ex) {
-//        List<String> errors = Collections.singletonList(ex.getMessage());
-//        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
-//
-//    @ExceptionHandler(RuntimeException.class)
-//    public final ResponseEntity<Map<String, List<String>>> handleRuntimeExceptions(RuntimeException ex) {
-//        List<String> errors = Collections.singletonList(ex.getMessage());
-//        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<Map<String, List<String>>> handleGeneralExceptions(Exception ex) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public final ResponseEntity<Map<String, List<String>>> handleRuntimeExceptions(RuntimeException ex) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     private Map<String, List<String>> getErrorsMap(List<String> errors) {
         Map<String, List<String>> errorResponse = new HashMap<>();

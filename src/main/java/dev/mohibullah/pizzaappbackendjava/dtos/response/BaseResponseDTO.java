@@ -1,19 +1,21 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import dev.mohibullah.pizzaappbackendjava.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class BaseResponseDTO<T> {
-    private List<T> content;
-    private int pageNo;
-    private int pageSize;
-    private long totalElements;
-    private int totalPages;
-    private boolean last;
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class BaseResponseDTO {
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private User createdBy;
+    private User updatedBy;
+
 }

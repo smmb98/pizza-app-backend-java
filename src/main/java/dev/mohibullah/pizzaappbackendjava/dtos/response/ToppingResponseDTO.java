@@ -2,25 +2,19 @@ package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
-import dev.mohibullah.pizzaappbackendjava.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ToppingResponseDTO {
+public class ToppingResponseDTO extends BaseResponseDTO {
     private String name;
     private Double price;
     private List<Category> categories;
-    private User createdBy;
-    private User updatedBy;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private int id;
 }

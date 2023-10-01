@@ -1,7 +1,7 @@
 package dev.mohibullah.pizzaappbackendjava.controllers;
 
 import dev.mohibullah.pizzaappbackendjava.dtos.request.ToppingRequestDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.ToppingResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
@@ -42,9 +42,9 @@ public class ToppingController {
     }
 
     @GetMapping("showToppings")
-    public ResponseEntity<BaseResponseDTO<ToppingResponseDTO>> showToppings(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        if (pageNo <= 0 || pageSize <= 0) {
+    public ResponseEntity<BaseShowAllResponseDTO<ToppingResponseDTO>> showToppings(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                                                   @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        if (page < 0 || pageSize < 0) {
             throw new InvalidPaginationException();
         }
 
@@ -75,14 +75,14 @@ public class ToppingController {
         System.out.println(toppingList);
 
 
-        BaseResponseDTO<ToppingResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
-        baseResponseDTO.setContent(toppingList);
-        baseResponseDTO.setPageNo(pageNo);
-        baseResponseDTO.setPageSize(pageSize);
-        baseResponseDTO.setTotalPages(1);
-        baseResponseDTO.setTotalElements(toppingList.size());
-        baseResponseDTO.setLast(true);
-        return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
+        BaseShowAllResponseDTO<ToppingResponseDTO> baseShowAllResponseDTO = new BaseShowAllResponseDTO<>();
+        baseShowAllResponseDTO.setContent(toppingList);
+        baseShowAllResponseDTO.setPage(page);
+        baseShowAllResponseDTO.setPageSize(pageSize);
+        baseShowAllResponseDTO.setTotalPages(1);
+        baseShowAllResponseDTO.setTotalElements(toppingList.size());
+        baseShowAllResponseDTO.setLast(true);
+        return new ResponseEntity<>(baseShowAllResponseDTO, HttpStatus.OK);
     }
 
 

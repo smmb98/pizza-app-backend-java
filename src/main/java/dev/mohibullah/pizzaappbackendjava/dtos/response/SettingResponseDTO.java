@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class SettingResponseDTO {
+public class SettingResponseDTO extends BaseResponseDTO {
     private int id;
     private boolean reviewSetting;
     private boolean paymentMethod;

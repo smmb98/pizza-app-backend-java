@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class OrderResponseDTO {
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+public class OrderResponseDTO extends BaseResponseDTO {
+
     private int id;
     private String deliveryAddress;
     private Double orderPrice;

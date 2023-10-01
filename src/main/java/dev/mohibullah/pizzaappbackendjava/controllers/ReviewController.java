@@ -1,7 +1,7 @@
 package dev.mohibullah.pizzaappbackendjava.controllers;
 
 import dev.mohibullah.pizzaappbackendjava.dtos.request.ReviewRequestDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.ReviewResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import jakarta.validation.Valid;
@@ -31,13 +31,13 @@ public class ReviewController {
     }
 
     @GetMapping("showReviews")
-    public ResponseEntity<BaseResponseDTO<ReviewResponseDTO>> showReviews(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+    public ResponseEntity<BaseShowAllResponseDTO<ReviewResponseDTO>> showReviews(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
-        if (pageNo <= 0 || pageSize <= 0) {
+        if (page < 0 || pageSize < 0) {
             throw new InvalidPaginationException();
         }
-        
+
         List<ReviewResponseDTO> reviewList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -52,13 +52,13 @@ public class ReviewController {
         System.out.println(reviewList);
 
 
-        BaseResponseDTO<ReviewResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
-        baseResponseDTO.setContent(reviewList);
-        baseResponseDTO.setPageNo(pageNo);
-        baseResponseDTO.setPageSize(pageSize);
-        baseResponseDTO.setTotalPages(1);
-        baseResponseDTO.setTotalElements(reviewList.size());
-        baseResponseDTO.setLast(true);
-        return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
+        BaseShowAllResponseDTO<ReviewResponseDTO> baseShowAllResponseDTO = new BaseShowAllResponseDTO<>();
+        baseShowAllResponseDTO.setContent(reviewList);
+        baseShowAllResponseDTO.setPage(page);
+        baseShowAllResponseDTO.setPageSize(pageSize);
+        baseShowAllResponseDTO.setTotalPages(1);
+        baseShowAllResponseDTO.setTotalElements(reviewList.size());
+        baseShowAllResponseDTO.setLast(true);
+        return new ResponseEntity<>(baseShowAllResponseDTO, HttpStatus.OK);
     }
 }

@@ -3,7 +3,7 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.OrderItemRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.OrderRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.OrderStatusUpdateRequestDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.OrderResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.enums.Stage;
 import dev.mohibullah.pizzaappbackendjava.enums.Status;
@@ -89,9 +89,9 @@ public class OrderController {
     }
 
     @GetMapping("showOrders")
-    public ResponseEntity<BaseResponseDTO<OrderResponseDTO>> showOrders(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        if (pageNo <= 0 || pageSize <= 0) {
+    public ResponseEntity<BaseShowAllResponseDTO<OrderResponseDTO>> showOrders(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        if (page < 0 || pageSize < 0) {
             throw new InvalidPaginationException();
         }
 
@@ -160,14 +160,14 @@ public class OrderController {
         System.out.println(orderList);
 
 
-        BaseResponseDTO<OrderResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
-        baseResponseDTO.setContent(orderList);
-        baseResponseDTO.setPageNo(pageNo);
-        baseResponseDTO.setPageSize(pageSize);
-        baseResponseDTO.setTotalPages(1);
-        baseResponseDTO.setTotalElements(orderList.size());
-        baseResponseDTO.setLast(true);
-        return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
+        BaseShowAllResponseDTO<OrderResponseDTO> baseShowAllResponseDTO = new BaseShowAllResponseDTO<>();
+        baseShowAllResponseDTO.setContent(orderList);
+        baseShowAllResponseDTO.setPage(page);
+        baseShowAllResponseDTO.setPageSize(pageSize);
+        baseShowAllResponseDTO.setTotalPages(1);
+        baseShowAllResponseDTO.setTotalElements(orderList.size());
+        baseShowAllResponseDTO.setLast(true);
+        return new ResponseEntity<>(baseShowAllResponseDTO, HttpStatus.OK);
     }
 
     @PutMapping("updateOrderStatus/{id}")

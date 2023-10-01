@@ -1,7 +1,7 @@
 package dev.mohibullah.pizzaappbackendjava.controllers;
 
 import dev.mohibullah.pizzaappbackendjava.dtos.request.UpdateUserRequestDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.UserResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
 import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidUserRoleParamException;
@@ -18,10 +18,10 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
     @GetMapping("fetchUsers")
-    public ResponseEntity<BaseResponseDTO<UserResponseDTO>> showUsers(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                                                                      @RequestParam(value = "role", defaultValue = "customer") String role) {
-        if (pageNo <= 0 || pageSize <= 0) {
+    public ResponseEntity<BaseShowAllResponseDTO<UserResponseDTO>> showUsers(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                                             @RequestParam(value = "role", defaultValue = "customer") String role) {
+        if (page < 0 || pageSize < 0) {
             throw new InvalidPaginationException();
         }
 
@@ -49,14 +49,14 @@ public class UserController {
         System.out.println(userList);
 
 
-        BaseResponseDTO<UserResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
-        baseResponseDTO.setContent(userList);
-        baseResponseDTO.setPageNo(pageNo);
-        baseResponseDTO.setPageSize(pageSize);
-        baseResponseDTO.setTotalPages(1);
-        baseResponseDTO.setTotalElements(userList.size());
-        baseResponseDTO.setLast(true);
-        return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
+        BaseShowAllResponseDTO<UserResponseDTO> baseShowAllResponseDTO = new BaseShowAllResponseDTO<>();
+        baseShowAllResponseDTO.setContent(userList);
+        baseShowAllResponseDTO.setPage(page);
+        baseShowAllResponseDTO.setPageSize(pageSize);
+        baseShowAllResponseDTO.setTotalPages(1);
+        baseShowAllResponseDTO.setTotalElements(userList.size());
+        baseShowAllResponseDTO.setLast(true);
+        return new ResponseEntity<>(baseShowAllResponseDTO, HttpStatus.OK);
     }
 
     @PutMapping("updateUserInfo/{id}")

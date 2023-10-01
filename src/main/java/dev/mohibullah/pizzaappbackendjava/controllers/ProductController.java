@@ -3,7 +3,7 @@ package dev.mohibullah.pizzaappbackendjava.controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.ProductRequestDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.ProductResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.enums.Status;
 import dev.mohibullah.pizzaappbackendjava.exceptions.InvalidPaginationException;
@@ -85,9 +85,9 @@ public class ProductController {
     }
 
     @GetMapping("showProducts")
-    public ResponseEntity<BaseResponseDTO<ProductResponseDTO>> showProducts(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        if (pageNo <= 0 || pageSize <= 0) {
+    public ResponseEntity<BaseShowAllResponseDTO<ProductResponseDTO>> showProducts(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                                                   @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        if (page < 0 || pageSize < 0) {
             throw new InvalidPaginationException();
         }
 
@@ -138,14 +138,14 @@ public class ProductController {
         System.out.println(productList);
 
 
-        BaseResponseDTO<ProductResponseDTO> baseResponseDTO = new BaseResponseDTO<>();
-        baseResponseDTO.setContent(productList);
-        baseResponseDTO.setPageNo(pageNo);
-        baseResponseDTO.setPageSize(pageSize);
-        baseResponseDTO.setTotalPages(1);
-        baseResponseDTO.setTotalElements(productList.size());
-        baseResponseDTO.setLast(true);
-        return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
+        BaseShowAllResponseDTO<ProductResponseDTO> baseShowAllResponseDTO = new BaseShowAllResponseDTO<>();
+        baseShowAllResponseDTO.setContent(productList);
+        baseShowAllResponseDTO.setPage(page);
+        baseShowAllResponseDTO.setPageSize(pageSize);
+        baseShowAllResponseDTO.setTotalPages(1);
+        baseShowAllResponseDTO.setTotalElements(productList.size());
+        baseShowAllResponseDTO.setLast(true);
+        return new ResponseEntity<>(baseShowAllResponseDTO, HttpStatus.OK);
     }
 
     @PutMapping("updateProduct/{id}")
