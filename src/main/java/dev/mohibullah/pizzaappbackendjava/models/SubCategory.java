@@ -28,5 +28,5 @@ public class SubCategory extends Base {
     private Category category;
 
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> product;
+    private List<Product> products;
 }

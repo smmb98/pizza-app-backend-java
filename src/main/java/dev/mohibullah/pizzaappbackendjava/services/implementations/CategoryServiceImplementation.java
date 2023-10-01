@@ -6,6 +6,8 @@ import dev.mohibullah.pizzaappbackendjava.dtos.response.CategoryResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.exceptions.EmptyItemsListException;
 import dev.mohibullah.pizzaappbackendjava.exceptions.ItemNotFoundException;
 import dev.mohibullah.pizzaappbackendjava.models.Category;
+import dev.mohibullah.pizzaappbackendjava.models.Product;
+import dev.mohibullah.pizzaappbackendjava.models.SubCategory;
 import dev.mohibullah.pizzaappbackendjava.repositories.CategoryRepository;
 import dev.mohibullah.pizzaappbackendjava.services.Interfaces.CategoryServiceInterface;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,6 @@ public class CategoryServiceImplementation implements CategoryServiceInterface {
     public BaseShowAllResponseDTO<CategoryResponseDTO> showCategories(int page, int pageSize) {
         if (pageSize == 0) {
             List<Category> allCategories = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-
             if (allCategories.isEmpty()) {
                 throw new EmptyItemsListException("No Categories in database");
             }
@@ -85,7 +86,17 @@ public class CategoryServiceImplementation implements CategoryServiceInterface {
     @Override
     public CategoryResponseDTO showCategoryById(int categoryId) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ItemNotFoundException("Category could not be found"));
+        if (category.getSubCategories().size() > 0) {
+            List<SubCategory> subCategories = category.getSubCategories();
 
+            for (SubCategory subCategory : subCategories) {
+                List<Product> products = subCategory.getProducts();
+                subCategory.setProducts(products);
+            }
+            category.setSubCategories(subCategories);
+        } else {
+            category.getProducts();
+        }
         return mapToResponseDto(category);
     }
 
