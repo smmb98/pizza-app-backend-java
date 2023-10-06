@@ -95,15 +95,10 @@ public class SubCategoryServiceImplementation implements SubCategoryServiceInter
 
     private SubCategoryResponseDTO mapToResponseDto(SubCategory subCategory) {
         SubCategoryResponseDTO subCategoryResponseDTO = new SubCategoryResponseDTO();
-//        Category category = subCategory.getCategory();
-//        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
 
-//        categoryResponseDTO.setId(category.getId());
-//        categoryResponseDTO.setName(category.getName());
         subCategoryResponseDTO.setId(subCategory.getId());
         subCategoryResponseDTO.setName(subCategory.getName());
         subCategoryResponseDTO.setCategory(subCategory.getCategory());
-//        subCategoryResponseDTO.setCategory(categoryResponseDTO);
         subCategoryResponseDTO.setCreatedAt(subCategory.getCreatedAt());
         subCategoryResponseDTO.setUpdatedAt(subCategory.getUpdatedAt());
 

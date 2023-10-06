@@ -1,17 +1,18 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,8 +29,10 @@ public class Size extends Base {
     private String description;
 
     @OneToMany(mappedBy = "size", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<>();
 
     @OneToMany(mappedBy = "size", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<OrderItem> orderItem = new ArrayList<>();
 }

@@ -85,19 +85,31 @@ public class CategoryServiceImplementation implements CategoryServiceInterface {
 
     @Override
     public CategoryResponseDTO showCategoryById(int categoryId) {
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ItemNotFoundException("Category could not be found"));
+        categoryResponseDTO.setId(category.getId());
+        categoryResponseDTO.setName(category.getName());
+
         if (category.getSubCategories().size() > 0) {
             List<SubCategory> subCategories = category.getSubCategories();
-
             for (SubCategory subCategory : subCategories) {
                 List<Product> products = subCategory.getProducts();
                 subCategory.setProducts(products);
+                // By setting the category to null it will not be fetched from the database
+                // Only with lazy loading enabled
+                subCategory.setCategory(null);
             }
-            category.setSubCategories(subCategories);
+
+            categoryResponseDTO.setSubCategories(subCategories);
         } else {
-            category.getProducts();
+            categoryResponseDTO.setProducts(category.getProducts());
         }
-        return mapToResponseDto(category);
+
+        categoryResponseDTO.setCreatedAt(category.getCreatedAt());
+        categoryResponseDTO.setUpdatedAt(category.getUpdatedAt());
+
+        return categoryResponseDTO;
     }
 
     @Override
