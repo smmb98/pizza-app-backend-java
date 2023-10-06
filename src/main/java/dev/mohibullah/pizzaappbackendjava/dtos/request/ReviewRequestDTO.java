@@ -16,7 +16,7 @@ public class ReviewRequestDTO {
     @Size(min = 2, max = 15, message = "Review description exceeds 15 characters or is less than 2 characters")
     private String description;
 
-    @NotNull(message = "Review ratings cannot be null")
-    @Positive(message = "Review ratings must be a positive number")
+    @NotNull(message = "Review rating cannot be null")
+    @Positive(message = "Review rating must be a positive number")
     private Double rating;
 }
