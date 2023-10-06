@@ -1,5 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -23,12 +24,12 @@ public class OrderItem extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Product product;
 
     @Column(nullable = false)
@@ -56,6 +57,6 @@ public class OrderItem extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Size size;
 }

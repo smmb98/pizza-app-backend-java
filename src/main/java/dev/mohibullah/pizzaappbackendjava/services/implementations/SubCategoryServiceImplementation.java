@@ -98,7 +98,11 @@ public class SubCategoryServiceImplementation implements SubCategoryServiceInter
 
         subCategoryResponseDTO.setId(subCategory.getId());
         subCategoryResponseDTO.setName(subCategory.getName());
-        subCategoryResponseDTO.setCategory(subCategory.getCategory());
+        Category category = subCategory.getCategory();
+        category.setSubCategories(null);
+        category.setToppings(null);
+        category.setProducts(null);
+        subCategoryResponseDTO.setCategory(category);
         subCategoryResponseDTO.setCreatedAt(subCategory.getCreatedAt());
         subCategoryResponseDTO.setUpdatedAt(subCategory.getUpdatedAt());
 

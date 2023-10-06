@@ -1,7 +1,7 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.mohibullah.pizzaappbackendjava.enums.Stage;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -51,6 +51,6 @@ public class Order extends Base {
     private String instruction;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private List<OrderItem> orderItem = new ArrayList<OrderItem>();
+    @JsonManagedReference
+    private List<OrderItem> orderItem = new ArrayList<>();
 }

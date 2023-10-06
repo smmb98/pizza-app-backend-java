@@ -1,7 +1,7 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,12 +21,12 @@ public class Products_Sizes_Prices extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Size size;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Product product;
 
     @Column(nullable = false)

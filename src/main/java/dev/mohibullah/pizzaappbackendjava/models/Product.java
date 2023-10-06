@@ -41,19 +41,19 @@ public class Product extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sub_category_id")
-    @JsonManagedReference // Prevents infinite loop
+    @JsonBackReference // Prevents infinite loop
     private SubCategory subCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonManagedReference
     private List<OrderItem> orderItems = new ArrayList<>();
 }

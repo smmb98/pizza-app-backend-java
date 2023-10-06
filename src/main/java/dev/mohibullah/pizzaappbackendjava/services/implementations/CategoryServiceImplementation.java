@@ -98,7 +98,7 @@ public class CategoryServiceImplementation implements CategoryServiceInterface {
                 subCategory.setProducts(products);
                 // By setting the category to null it will not be fetched from the database
                 // Only with lazy loading enabled
-                subCategory.setCategory(null);
+//                subCategory.setCategory(null);
             }
 
             categoryResponseDTO.setSubCategories(subCategories);

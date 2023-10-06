@@ -28,10 +28,10 @@ public class SubCategory extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Category category;
 
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Product> products;
 }

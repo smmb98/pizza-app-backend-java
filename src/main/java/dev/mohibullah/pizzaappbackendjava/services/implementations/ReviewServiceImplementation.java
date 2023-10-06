@@ -95,7 +95,6 @@ public class ReviewServiceImplementation implements ReviewServiceInterface {
 
     private Review mapToEntity(ReviewRequestDTO reviewRequestDTO) {
         Review review = new Review();
-        System.out.println(reviewRequestDTO.getRating());
         review.setRating(reviewRequestDTO.getRating());
         review.setDescription(reviewRequestDTO.getDescription());
         return review;

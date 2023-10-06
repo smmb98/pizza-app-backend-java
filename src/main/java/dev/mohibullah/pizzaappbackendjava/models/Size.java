@@ -1,7 +1,7 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,10 +29,10 @@ public class Size extends Base {
     private String description;
 
     @OneToMany(mappedBy = "size", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<>();
 
     @OneToMany(mappedBy = "size", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonManagedReference
     private List<OrderItem> orderItem = new ArrayList<>();
 }
