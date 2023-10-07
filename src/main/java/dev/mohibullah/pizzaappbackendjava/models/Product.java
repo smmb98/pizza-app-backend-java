@@ -1,8 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.mohibullah.pizzaappbackendjava.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,19 +39,15 @@ public class Product extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sub_category_id")
-    @JsonBackReference // Prevents infinite loop
     private SubCategory subCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @JsonBackReference
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<OrderItem> orderItems = new ArrayList<>();
 }

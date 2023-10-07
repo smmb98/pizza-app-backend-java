@@ -3,15 +3,11 @@ package dev.mohibullah.pizzaappbackendjava.services.implementations;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.mohibullah.pizzaappbackendjava.dtos.request.ProductRequestDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.ProductResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.*;
 import dev.mohibullah.pizzaappbackendjava.enums.Status;
 import dev.mohibullah.pizzaappbackendjava.exceptions.EmptyItemsListException;
 import dev.mohibullah.pizzaappbackendjava.exceptions.ItemNotFoundException;
-import dev.mohibullah.pizzaappbackendjava.models.Category;
-import dev.mohibullah.pizzaappbackendjava.models.Product;
-import dev.mohibullah.pizzaappbackendjava.models.Products_Sizes_Prices;
-import dev.mohibullah.pizzaappbackendjava.models.Size;
+import dev.mohibullah.pizzaappbackendjava.models.*;
 import dev.mohibullah.pizzaappbackendjava.repositories.*;
 import dev.mohibullah.pizzaappbackendjava.services.Interfaces.ProductServiceInterface;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,7 +39,6 @@ public class ProductServiceImplementation implements ProductServiceInterface {
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) throws IOException {
 
-//        Product product = productRepository.save(mapToEntity(productRequestDTO));
         Product product = mapToEntity(productRequestDTO);
 
         return mapToResponseDto(product);
@@ -100,10 +96,10 @@ public class ProductServiceImplementation implements ProductServiceInterface {
 
 
     @Override
-    public ProductResponseDTO updateProduct(ProductRequestDTO productRequestDTO, int productId) {
+    public ProductResponseDTO updateProduct(ProductRequestDTO productRequestDTO, int productId) throws IOException {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ItemNotFoundException("Product could not be found"));
-//        productRepository.save(mapToEntity(productRequestDTO, product));
-        return mapToResponseDto(product);
+
+        return mapToResponseDto(mapToEntity(productRequestDTO, product));
     }
 
 
@@ -116,29 +112,49 @@ public class ProductServiceImplementation implements ProductServiceInterface {
         productResponseDTO.setDescription(product.getDescription());
         productResponseDTO.setStatus(product.getStatus());
 
-//        Category category = product.getCategory();
-//        category.setProducts(null);
-//        category.setSubCategories(null);
-//        category.setToppings(null);
-//        productResponseDTO.setCategory(category);
+        SubCategory subCategory = product.getSubCategory();
+        if (subCategory != null) {
+            SubCategoryResponseDTO subCategoryResponseDTO = new SubCategoryResponseDTO();
+            subCategoryResponseDTO.setId(subCategory.getId());
+            subCategoryResponseDTO.setName(subCategory.getName());
+            subCategoryResponseDTO.setCreatedAt(subCategory.getCreatedAt());
+            subCategoryResponseDTO.setUpdatedAt(subCategory.getUpdatedAt());
+            productResponseDTO.setSubCategory(subCategoryResponseDTO);
+        }
 
-//        SubCategory subCategory = product.getSubCategory();
-//        subCategory.setCategory(null);
-//        subCategory.setProducts(null);
-//        productResponseDTO.setSubCategory(subCategory);
+        Category category = product.getCategory();
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+        categoryResponseDTO.setId(category.getId());
+        categoryResponseDTO.setName(category.getName());
+        categoryResponseDTO.setCreatedAt(category.getCreatedAt());
+        categoryResponseDTO.setUpdatedAt(category.getUpdatedAt());
+        productResponseDTO.setCategory(categoryResponseDTO);
+
+        List<ProductResponseDTO.Products_Sizes_PricesResponseDTO> productsSizesPricesResponseDTOList = new ArrayList<>();
+        for (Products_Sizes_Prices productsSizesPrice : product.getProductsSizesPrices()) {
+            ProductResponseDTO.Products_Sizes_PricesResponseDTO productsSizesPricesResponseDTO = new ProductResponseDTO.Products_Sizes_PricesResponseDTO();
+            productsSizesPricesResponseDTO.setId(productsSizesPrice.getId());
+            productsSizesPricesResponseDTO.setPrice(productsSizesPrice.getPrice());
+
+            Size size = productsSizesPrice.getSize();
+            SizeResponseDTO sizeResponseDTO = new SizeResponseDTO();
+            sizeResponseDTO.setId(size.getId());
+            sizeResponseDTO.setMeasurement(size.getMeasurement());
+            sizeResponseDTO.setDescription(size.getDescription());
+            sizeResponseDTO.setCreatedAt(size.getCreatedAt());
+            sizeResponseDTO.setUpdatedAt(size.getUpdatedAt());
+            productsSizesPricesResponseDTO.setSize(sizeResponseDTO);
+
+            productsSizesPricesResponseDTO.setCreatedAt(productsSizesPrice.getCreatedAt());
+            productsSizesPricesResponseDTO.setUpdatedAt(productsSizesPrice.getUpdatedAt());
+
+            productsSizesPricesResponseDTOList.add(productsSizesPricesResponseDTO);
+        }
+        productsSizesPricesResponseDTOList.sort(Comparator.comparing(ProductResponseDTO.Products_Sizes_PricesResponseDTO::getId));
+        productResponseDTO.setProductsSizesPrices(productsSizesPricesResponseDTOList);
 
         productResponseDTO.setCreatedAt(product.getCreatedAt());
         productResponseDTO.setUpdatedAt(product.getUpdatedAt());
-
-        List<Products_Sizes_Prices> productsSizesPricesList = new ArrayList<>();
-        for (int i = 0; i < product.getProductsSizesPrices().size(); i++) {
-            Products_Sizes_Prices productsSizesPrices = product.getProductsSizesPrices().get(i);
-//            productsSizesPrices.getSize();
-            productsSizesPrices.setProduct(null);
-            productsSizesPricesList.add(productsSizesPrices);
-        }
-
-//        productResponseDTO.setProductsSizesPrices(productsSizesPricesList);
 
         return productResponseDTO;
     }
@@ -146,17 +162,25 @@ public class ProductServiceImplementation implements ProductServiceInterface {
     private Product mapToEntity(ProductRequestDTO productRequestDTO) throws IOException {
         Product product = new Product();
 
+        product.setName(productRequestDTO.getName());
+        product.setImageName(productRequestDTO.getName().replace(" ", "_") + ".webp");
+        product.setDescription(productRequestDTO.getDescription());
+        product.setStatus(Status.ACTIVE);
+
         Category category = categoryRepository.findById(Integer.valueOf(productRequestDTO.getCategoryId())).orElseThrow(() -> new ItemNotFoundException("Category could not be found"));
-//        category.setProducts(null);
-//        category.setSubCategories(null);
-//        category.setToppings(null);
-//        SubCategory subCategory = new SubCategory();
-//
-//        if (productRequestDTO.getSubCategoryId() != null) {
-//            subCategory = subCategoryRepository.findById(Integer.valueOf(productRequestDTO.getSubCategoryId())).orElseThrow(() -> new ItemNotFoundException("SubCategory could not be found"));
-////            subCategory.setCategory(null);
-////            subCategory.setProducts(null);
-//        }
+        product.setCategory(category);
+
+        if (productRequestDTO.getSubCategoryId() != null) {
+            SubCategory subCategory = subCategoryRepository.findById(Integer.valueOf(productRequestDTO.getSubCategoryId())).orElseThrow(() -> new ItemNotFoundException("SubCategory could not be found"));
+            product.setSubCategory(subCategory);
+        }
+
+        MultipartFile productImage = productRequestDTO.getProductImage();
+        File file = new File("src/main/resources/static/ProductImages/", productRequestDTO.getName().replace(" ", "_") + ".webp");
+        try (OutputStream os = new FileOutputStream(file)) {
+            os.write(productImage.getBytes());
+        }
+
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<ProductRequestDTO.SizeIdDTO> sizeIdList = objectMapper.readValue(
@@ -168,46 +192,130 @@ public class ProductServiceImplementation implements ProductServiceInterface {
         List<Size> sizeList = new ArrayList<>();
         for (ProductRequestDTO.SizeIdDTO sizeIdDTO : sizeIdList) {
             Size size = sizeRepository.findById(sizeIdDTO.getId()).orElseThrow(() -> new ItemNotFoundException("One or more Sizes could not be found"));
-            size.setProductsSizesPrices(null);
-            size.setOrderItem(null);
             sizeList.add(size);
         }
 
-
-        MultipartFile productImage = productRequestDTO.getProductImage();
-
-        product.setName(productRequestDTO.getName());
-        product.setImageName(productRequestDTO.getName().replace(" ", "_") + ".webp");
-        product.setDescription(productRequestDTO.getDescription());
-        product.setStatus(Status.ACTIVE);
-        product.setCategory(category);
-//        if (productRequestDTO.getSubCategoryId() != null) {
-//            product.setSubCategory(subCategory);
-//        }
-
         productRepository.save(product);
 
+        List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<>();
         for (int i = 0; i < sizeIdList.size(); i++) {
             Products_Sizes_Prices products_sizes_prices = new Products_Sizes_Prices();
             products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
             products_sizes_prices.setSize(sizeList.get(i));
             products_sizes_prices.setProduct(product);
             productsSizesPricesRepository.save(products_sizes_prices);
+            productsSizesPrices.add(products_sizes_prices);
         }
-
-        File file = new File("src/main/resources/static/ProductImages/", productRequestDTO.getName().replace(" ", "_") + ".webp");
-        try (OutputStream os = new FileOutputStream(file)) {
-            os.write(productImage.getBytes());
-        }
+        product.setProductsSizesPrices(productsSizesPrices);
 
 
         return product;
     }
 
-//    private Product mapToEntity(ProductRequestDTO productRequestDTO, Product product) {
-//        size.setMeasurement(sizeRequestDTO.getMeasurement());
-//        size.setDescription(sizeRequestDTO.getDescription());
+    private Product mapToEntity(ProductRequestDTO productRequestDTO, Product product) throws IOException {
+        product.setName(productRequestDTO.getName());
+        product.setImageName(productRequestDTO.getName().replace(" ", "_") + ".webp");
+        product.setDescription(productRequestDTO.getDescription());
+        product.setStatus(Status.INACTIVE.getLabel().equals(productRequestDTO.getStatus()) ? Status.INACTIVE : Status.ACTIVE);
+        Category category = categoryRepository.findById(Integer.valueOf(productRequestDTO.getCategoryId())).orElseThrow(() -> new ItemNotFoundException("Category could not be found"));
+        product.setCategory(category);
+
+        if (productRequestDTO.getSubCategoryId() != null) {
+            SubCategory subCategory = subCategoryRepository.findById(Integer.valueOf(productRequestDTO.getSubCategoryId())).orElseThrow(() -> new ItemNotFoundException("SubCategory could not be found"));
+            product.setSubCategory(subCategory);
+        } else {
+            product.setSubCategory(null);
+        }
+
+        MultipartFile productImage = productRequestDTO.getProductImage();
+        File file = new File("src/main/resources/static/ProductImages/", productRequestDTO.getName().replace(" ", "_") + ".webp");
+        try (OutputStream os = new FileOutputStream(file)) {
+            os.write(productImage.getBytes());
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<ProductRequestDTO.SizeIdDTO> sizeIdList = objectMapper.readValue(
+                productRequestDTO.getSizeId(),
+                new TypeReference<>() {
+                }
+        );
+
+        List<Size> sizeList = new ArrayList<>();
+        for (ProductRequestDTO.SizeIdDTO sizeIdDTO : sizeIdList) {
+            Size size = sizeRepository.findById(sizeIdDTO.getId()).orElseThrow(() -> new ItemNotFoundException("One or more Sizes could not be found"));
+            sizeList.add(size);
+        }
+
+        productRepository.save(product);
+
+//        productsSizesPricesRepository.deleteById(20); // Here delete works
+
+//        List<Products_Sizes_Prices> productsSizesPrices = product.getProductsSizesPrices();
 //
-//        return product;
-//    }
+//        int largestSizeLength = Math.max(sizeIdList.size(), productsSizesPrices.size());
+//
+//
+//        for (int i = 0; i < largestSizeLength; i++) {
+//            if (i < productsSizesPrices.size()) {
+//                Products_Sizes_Prices products_sizes_prices = productsSizesPrices.get(i);
+//                if (i < sizeList.size()) {
+//                    System.out.println("On Update");
+//                    products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
+//                    products_sizes_prices.setSize(sizeList.get(i));
+//                    productsSizesPricesRepository.save(products_sizes_prices);
+//                } else {
+//                    System.out.println("On Delete");
+//                    productsSizesPricesRepository.delete(products_sizes_prices); // This delete command is not working, even though above code executes
+//                }
+//            } else {
+//                Products_Sizes_Prices products_sizes_prices = new Products_Sizes_Prices();
+//                products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
+//                products_sizes_prices.setSize(sizeList.get(i));
+//                products_sizes_prices.setProduct(product);
+//                productsSizesPricesRepository.save(products_sizes_prices);
+//            }
+//        }
+
+////////////////////////////////////////////////////////////////////////
+//        List<Products_Sizes_Prices> productsSizesPrices = product.getProductsSizesPrices();
+//
+//        int largestSizeLength = Math.max(sizeIdList.size(), productsSizesPrices.size());
+//
+//        List<Products_Sizes_Prices> productsToSaveOrUpdate = new ArrayList<>();
+//        List<Products_Sizes_Prices> productsToDelete = new ArrayList<>();
+//
+//        for (int i = 0; i < largestSizeLength; i++) {
+//            if (i < productsSizesPrices.size()) {
+//                Products_Sizes_Prices products_sizes_prices = productsSizesPrices.get(i);
+//                if (i < sizeList.size()) {
+//                    System.out.println("On Update");
+//                    products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
+//                    products_sizes_prices.setSize(sizeList.get(i));
+////                    productsToSaveOrUpdate.add(products_sizes_prices);
+//                } else {
+//                    System.out.println("On Delete");
+//                    productsToDelete.add(products_sizes_prices);
+//                }
+//            } else {
+//                Products_Sizes_Prices products_sizes_prices = new Products_Sizes_Prices();
+//                products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
+//                products_sizes_prices.setSize(sizeList.get(i));
+//                products_sizes_prices.setProduct(product);
+//                productsToSaveOrUpdate.add(products_sizes_prices);
+//            }
+//        }
+//
+//// Batch save or update
+//        if (!productsToSaveOrUpdate.isEmpty()) {
+//            productsSizesPricesRepository.saveAll(productsToSaveOrUpdate);
+//        }
+//
+//// Batch delete
+//        if (!productsToDelete.isEmpty()) {
+//            productsSizesPricesRepository.deleteAll(productsToDelete);
+//        }
+//
+
+        return product;
+    }
 }
