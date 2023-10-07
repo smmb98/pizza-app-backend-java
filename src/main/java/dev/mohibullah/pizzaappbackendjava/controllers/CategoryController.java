@@ -19,33 +19,45 @@ public class CategoryController {
     private final CategoryServiceImplementation categoryServiceImplementation;
 
     @PostMapping("addCategory")
-    public ResponseEntity<CategoryResponseDTO> createCategory(@Valid @RequestBody CategoryRequestDTO categoryRequestDTO) {
+    public ResponseEntity<CategoryResponseDTO> createCategory(
+            @Valid @RequestBody CategoryRequestDTO categoryRequestDTO) {
 
-        return new ResponseEntity<>(categoryServiceImplementation.createCategory(categoryRequestDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                categoryServiceImplementation.createCategory(categoryRequestDTO),
+                HttpStatus.CREATED);
     }
 
     @GetMapping("showCategories")
-    public ResponseEntity<BaseShowAllResponseDTO<CategoryResponseDTO>> showCategories(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                                                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+    public ResponseEntity<BaseShowAllResponseDTO<CategoryResponseDTO>> showCategories(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
         if (page < 0 || pageSize < 0) {
             throw new InvalidPaginationException();
         }
 
 
-        return new ResponseEntity<>(categoryServiceImplementation.showCategories(page, pageSize), HttpStatus.OK);
+        return new ResponseEntity<>(
+                categoryServiceImplementation.showCategories(page, pageSize),
+                HttpStatus.OK);
     }
 
     @GetMapping("showCategoryById/{id}")
     public ResponseEntity<CategoryResponseDTO> showCategoryById(@PathVariable("id") int categoryId) {
 
 
-        return new ResponseEntity<>(categoryServiceImplementation.showCategoryById(categoryId), HttpStatus.OK);
+        return new ResponseEntity<>(
+                categoryServiceImplementation.showCategoryById(categoryId),
+                HttpStatus.OK);
     }
 
     @PutMapping("updateCategory/{id}")
-    public ResponseEntity<CategoryResponseDTO> updateCategory(@Valid @RequestBody CategoryRequestDTO categoryRequestDTO, @PathVariable("id") int categoryId) {
+    public ResponseEntity<CategoryResponseDTO> updateCategory(
+            @Valid @RequestBody CategoryRequestDTO categoryRequestDTO,
+            @PathVariable("id") int categoryId) {
 
-        return new ResponseEntity<>(categoryServiceImplementation.updateCategory(categoryRequestDTO, categoryId), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                categoryServiceImplementation.updateCategory(categoryRequestDTO, categoryId),
+                HttpStatus.CREATED);
     }
 }

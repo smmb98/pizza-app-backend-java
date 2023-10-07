@@ -28,11 +28,9 @@ public class Category extends Base {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    @JsonManagedReference
     private List<SubCategory> subCategories = new ArrayList<>();
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
@@ -41,7 +39,6 @@ public class Category extends Base {
     })
     @JoinTable(name = "category_topping", joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "topping_id"))
-//    @JsonManagedReference
     private Set<Topping> toppings = new HashSet<>();
 
 }
