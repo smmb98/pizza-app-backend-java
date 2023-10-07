@@ -248,33 +248,37 @@ public class ProductServiceImplementation implements ProductServiceInterface {
 
         productRepository.save(product);
 
+
+////////////////////////////////////////////////////////////////////////
+///////////////////////////// Need Help Here ///////////////////////////
+////////////////////////////////////////////////////////////////////////
 //        productsSizesPricesRepository.deleteById(20); // Here delete works
 
-//        List<Products_Sizes_Prices> productsSizesPrices = product.getProductsSizesPrices();
-//
-//        int largestSizeLength = Math.max(sizeIdList.size(), productsSizesPrices.size());
-//
-//
-//        for (int i = 0; i < largestSizeLength; i++) {
-//            if (i < productsSizesPrices.size()) {
-//                Products_Sizes_Prices products_sizes_prices = productsSizesPrices.get(i);
-//                if (i < sizeList.size()) {
-//                    System.out.println("On Update");
-//                    products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
-//                    products_sizes_prices.setSize(sizeList.get(i));
-//                    productsSizesPricesRepository.save(products_sizes_prices);
-//                } else {
-//                    System.out.println("On Delete");
-//                    productsSizesPricesRepository.delete(products_sizes_prices); // This delete command is not working, even though above code executes
-//                }
-//            } else {
-//                Products_Sizes_Prices products_sizes_prices = new Products_Sizes_Prices();
-//                products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
-//                products_sizes_prices.setSize(sizeList.get(i));
-//                products_sizes_prices.setProduct(product);
-//                productsSizesPricesRepository.save(products_sizes_prices);
-//            }
-//        }
+        List<Products_Sizes_Prices> productsSizesPrices = product.getProductsSizesPrices();
+
+        int largestSizeLength = Math.max(sizeIdList.size(), productsSizesPrices.size());
+
+
+        for (int i = 0; i < largestSizeLength; i++) {
+            if (i < productsSizesPrices.size()) {
+                Products_Sizes_Prices products_sizes_prices = productsSizesPrices.get(i);
+                if (i < sizeList.size()) {
+                    System.out.println("On Update");
+                    products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
+                    products_sizes_prices.setSize(sizeList.get(i));
+                    productsSizesPricesRepository.save(products_sizes_prices);
+                } else {
+                    System.out.println("On Delete");
+                    productsSizesPricesRepository.delete(products_sizes_prices); // This delete command is not working, even though above code executes
+                }
+            } else {
+                Products_Sizes_Prices products_sizes_prices = new Products_Sizes_Prices();
+                products_sizes_prices.setPrice(sizeIdList.get(i).getPrice());
+                products_sizes_prices.setSize(sizeList.get(i));
+                products_sizes_prices.setProduct(product);
+                productsSizesPricesRepository.save(products_sizes_prices);
+            }
+        }
 
 ////////////////////////////////////////////////////////////////////////
 //        List<Products_Sizes_Prices> productsSizesPrices = product.getProductsSizesPrices();
