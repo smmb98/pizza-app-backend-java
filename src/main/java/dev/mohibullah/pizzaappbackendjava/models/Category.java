@@ -1,7 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,11 +28,11 @@ public class Category extends Base {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference
+//    @JsonManagedReference
     private List<SubCategory> subCategories = new ArrayList<>();
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference
+//    @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
@@ -42,7 +41,7 @@ public class Category extends Base {
     })
     @JoinTable(name = "category_topping", joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "topping_id"))
-    @JsonManagedReference
+//    @JsonManagedReference
     private Set<Topping> toppings = new HashSet<>();
 
 }

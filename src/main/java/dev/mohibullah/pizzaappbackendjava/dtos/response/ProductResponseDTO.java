@@ -2,9 +2,6 @@ package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.mohibullah.pizzaappbackendjava.enums.Status;
-import dev.mohibullah.pizzaappbackendjava.models.Category;
-import dev.mohibullah.pizzaappbackendjava.models.Products_Sizes_Prices;
-import dev.mohibullah.pizzaappbackendjava.models.SubCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +22,19 @@ public class ProductResponseDTO extends BaseResponseDTO {
     private String imageName;
     private String description;
     private Status status;
-    private SubCategory subCategory;
-    private Category category;
-    private List<Products_Sizes_Prices> productsSizesPrices = new ArrayList<>();
+    private SubCategoryResponseDTO subCategory;
+    private CategoryResponseDTO category;
+    private List<Products_Sizes_PricesResponseDTO> productsSizesPrices = new ArrayList<>();
+
+    @EqualsAndHashCode(callSuper = true)
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    public static class Products_Sizes_PricesResponseDTO extends BaseResponseDTO {
+        private int id;
+        private SizeResponseDTO size;
+        private double price;
+
+    }
 }

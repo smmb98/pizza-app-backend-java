@@ -1,13 +1,10 @@
 package dev.mohibullah.pizzaappbackendjava.services.implementations;
 
 import dev.mohibullah.pizzaappbackendjava.dtos.request.CategoryRequestDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
-import dev.mohibullah.pizzaappbackendjava.dtos.response.CategoryResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.*;
 import dev.mohibullah.pizzaappbackendjava.exceptions.EmptyItemsListException;
 import dev.mohibullah.pizzaappbackendjava.exceptions.ItemNotFoundException;
-import dev.mohibullah.pizzaappbackendjava.models.Category;
-import dev.mohibullah.pizzaappbackendjava.models.Product;
-import dev.mohibullah.pizzaappbackendjava.models.SubCategory;
+import dev.mohibullah.pizzaappbackendjava.models.*;
 import dev.mohibullah.pizzaappbackendjava.repositories.CategoryRepository;
 import dev.mohibullah.pizzaappbackendjava.services.Interfaces.CategoryServiceInterface;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -92,19 +91,100 @@ public class CategoryServiceImplementation implements CategoryServiceInterface {
         categoryResponseDTO.setName(category.getName());
 
         if (category.getSubCategories().size() > 0) {
-            List<SubCategory> subCategories = category.getSubCategories();
-            for (SubCategory subCategory : subCategories) {
-                List<Product> products = subCategory.getProducts();
-                subCategory.setProducts(products);
-                // By setting the category to null it will not be fetched from the database
-                // Only with lazy loading enabled
-//                subCategory.setCategory(null);
-            }
+            List<SubCategoryResponseDTO> subCategoryResponseDTOList = new ArrayList<>();
+            for (SubCategory subCategory : category.getSubCategories()) {
+                SubCategoryResponseDTO subCategoryResponseDTO = new SubCategoryResponseDTO();
+                subCategoryResponseDTO.setId(subCategory.getId());
+                subCategoryResponseDTO.setName(subCategory.getName());
 
-            categoryResponseDTO.setSubCategories(subCategories);
+                List<ProductResponseDTO> productResponseDTOList = new ArrayList<>();
+                for (Product product : subCategory.getProducts()) {
+                    ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+                    productResponseDTO.setId(product.getId());
+                    productResponseDTO.setName(product.getName());
+                    productResponseDTO.setImageName(product.getImageName());
+                    productResponseDTO.setDescription(product.getDescription());
+                    productResponseDTO.setStatus(product.getStatus());
+
+                    List<ProductResponseDTO.Products_Sizes_PricesResponseDTO> productsSizesPricesResponseDTOList = new ArrayList<>();
+                    for (Products_Sizes_Prices productsSizesPrice : product.getProductsSizesPrices()) {
+                        ProductResponseDTO.Products_Sizes_PricesResponseDTO productsSizesPricesResponseDTO = new ProductResponseDTO.Products_Sizes_PricesResponseDTO();
+                        productsSizesPricesResponseDTO.setId(productsSizesPrice.getId());
+                        productsSizesPricesResponseDTO.setPrice(productsSizesPrice.getPrice());
+
+                        Size size = productsSizesPrice.getSize();
+                        SizeResponseDTO sizeResponseDTO = new SizeResponseDTO();
+                        sizeResponseDTO.setId(size.getId());
+                        sizeResponseDTO.setMeasurement(size.getMeasurement());
+                        sizeResponseDTO.setDescription(size.getDescription());
+                        sizeResponseDTO.setCreatedAt(size.getCreatedAt());
+                        sizeResponseDTO.setUpdatedAt(size.getUpdatedAt());
+                        productsSizesPricesResponseDTO.setSize(sizeResponseDTO);
+
+                        productsSizesPricesResponseDTO.setCreatedAt(productsSizesPrice.getCreatedAt());
+                        productsSizesPricesResponseDTO.setUpdatedAt(productsSizesPrice.getUpdatedAt());
+
+                        productsSizesPricesResponseDTOList.add(productsSizesPricesResponseDTO);
+                    }
+                    productsSizesPricesResponseDTOList.sort(Comparator.comparing(ProductResponseDTO.Products_Sizes_PricesResponseDTO::getId));
+                    productResponseDTO.setProductsSizesPrices(productsSizesPricesResponseDTOList);
+
+                    productResponseDTO.setCreatedAt(product.getCreatedAt());
+                    productResponseDTO.setUpdatedAt(product.getUpdatedAt());
+
+                    productResponseDTOList.add(productResponseDTO);
+                }
+                productResponseDTOList.sort(Comparator.comparing(ProductResponseDTO::getId));
+                subCategoryResponseDTO.setProducts(productResponseDTOList);
+
+                subCategoryResponseDTOList.add(subCategoryResponseDTO);
+            }
+            subCategoryResponseDTOList.sort(Comparator.comparing(SubCategoryResponseDTO::getId));
+
+            categoryResponseDTO.setSubCategories(subCategoryResponseDTOList);
         } else {
-            categoryResponseDTO.setProducts(category.getProducts());
+            List<ProductResponseDTO> productResponseDTOList = new ArrayList<>();
+            for (Product product : category.getProducts()) {
+                ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+                productResponseDTO.setId(product.getId());
+                productResponseDTO.setName(product.getName());
+                productResponseDTO.setImageName(product.getImageName());
+                productResponseDTO.setDescription(product.getDescription());
+                productResponseDTO.setStatus(product.getStatus());
+
+                List<ProductResponseDTO.Products_Sizes_PricesResponseDTO> productsSizesPricesResponseDTOList = new ArrayList<>();
+                for (Products_Sizes_Prices productsSizesPrice : product.getProductsSizesPrices()) {
+                    ProductResponseDTO.Products_Sizes_PricesResponseDTO productsSizesPricesResponseDTO = new ProductResponseDTO.Products_Sizes_PricesResponseDTO();
+                    productsSizesPricesResponseDTO.setId(productsSizesPrice.getId());
+                    productsSizesPricesResponseDTO.setPrice(productsSizesPrice.getPrice());
+
+                    Size size = productsSizesPrice.getSize();
+                    SizeResponseDTO sizeResponseDTO = new SizeResponseDTO();
+                    sizeResponseDTO.setId(size.getId());
+                    sizeResponseDTO.setMeasurement(size.getMeasurement());
+                    sizeResponseDTO.setDescription(size.getDescription());
+                    sizeResponseDTO.setCreatedAt(size.getCreatedAt());
+                    sizeResponseDTO.setUpdatedAt(size.getUpdatedAt());
+                    productsSizesPricesResponseDTO.setSize(sizeResponseDTO);
+
+                    productsSizesPricesResponseDTO.setCreatedAt(productsSizesPrice.getCreatedAt());
+                    productsSizesPricesResponseDTO.setUpdatedAt(productsSizesPrice.getUpdatedAt());
+
+                    productsSizesPricesResponseDTOList.add(productsSizesPricesResponseDTO);
+                }
+                productsSizesPricesResponseDTOList.sort(Comparator.comparing(ProductResponseDTO.Products_Sizes_PricesResponseDTO::getId));
+                productResponseDTO.setProductsSizesPrices(productsSizesPricesResponseDTOList);
+
+                productResponseDTO.setCreatedAt(product.getCreatedAt());
+                productResponseDTO.setUpdatedAt(product.getUpdatedAt());
+
+                productResponseDTOList.add(productResponseDTO);
+            }
+            productResponseDTOList.sort(Comparator.comparing(ProductResponseDTO::getId));
+
+            categoryResponseDTO.setProducts(productResponseDTOList);
         }
+
 
         categoryResponseDTO.setCreatedAt(category.getCreatedAt());
         categoryResponseDTO.setUpdatedAt(category.getUpdatedAt());

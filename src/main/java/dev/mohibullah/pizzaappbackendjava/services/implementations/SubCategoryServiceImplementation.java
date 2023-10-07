@@ -2,6 +2,7 @@ package dev.mohibullah.pizzaappbackendjava.services.implementations;
 
 import dev.mohibullah.pizzaappbackendjava.dtos.request.SubCategoryRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.CategoryResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.SubCategoryResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.exceptions.EmptyItemsListException;
 import dev.mohibullah.pizzaappbackendjava.exceptions.ItemNotFoundException;
@@ -102,7 +103,14 @@ public class SubCategoryServiceImplementation implements SubCategoryServiceInter
         category.setSubCategories(null);
         category.setToppings(null);
         category.setProducts(null);
-        subCategoryResponseDTO.setCategory(category);
+//        subCategoryResponseDTO.setCategory(category);
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+        categoryResponseDTO.setId(category.getId());
+        categoryResponseDTO.setName(category.getName());
+        categoryResponseDTO.setCreatedAt(category.getCreatedAt());
+        categoryResponseDTO.setUpdatedAt(category.getUpdatedAt());
+        subCategoryResponseDTO.setCategory(categoryResponseDTO);
+
         subCategoryResponseDTO.setCreatedAt(subCategory.getCreatedAt());
         subCategoryResponseDTO.setUpdatedAt(subCategory.getUpdatedAt());
 
