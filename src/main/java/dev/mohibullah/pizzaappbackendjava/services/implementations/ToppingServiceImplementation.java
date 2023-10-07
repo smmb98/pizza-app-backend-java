@@ -2,6 +2,7 @@ package dev.mohibullah.pizzaappbackendjava.services.implementations;
 
 import dev.mohibullah.pizzaappbackendjava.dtos.request.ToppingRequestDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.BaseShowAllResponseDTO;
+import dev.mohibullah.pizzaappbackendjava.dtos.response.CategoryResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.dtos.response.ToppingResponseDTO;
 import dev.mohibullah.pizzaappbackendjava.exceptions.EmptyItemsListException;
 import dev.mohibullah.pizzaappbackendjava.exceptions.ItemNotFoundException;
@@ -98,14 +99,19 @@ public class ToppingServiceImplementation implements ToppingServiceInterface {
         toppingResponseDTO.setId(topping.getId());
         toppingResponseDTO.setName(topping.getName());
         toppingResponseDTO.setPrice(topping.getPrice());
-        List<Category> categoryList = new ArrayList<>();
+
+        List<CategoryResponseDTO> categoryResponseDTOList = new ArrayList<>();
         for (Category category : topping.getCategories()) {
-            category.setSubCategories(null);
-            category.setToppings(null);
-            category.setProducts(null);
-            categoryList.add(category);
+
+            CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+            categoryResponseDTO.setId(category.getId());
+            categoryResponseDTO.setName(category.getName());
+            categoryResponseDTO.setCreatedAt(category.getCreatedAt());
+            categoryResponseDTO.setUpdatedAt(category.getUpdatedAt());
+            categoryResponseDTOList.add(categoryResponseDTO);
         }
-        toppingResponseDTO.setCategories(categoryList);
+        toppingResponseDTO.setCategories(categoryResponseDTOList);
+
         toppingResponseDTO.setCreatedAt(topping.getCreatedAt());
         toppingResponseDTO.setUpdatedAt(topping.getUpdatedAt());
 

@@ -1,8 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,13 +30,11 @@ public class Topping extends Base {
     private double price;
 
     @OneToMany(mappedBy = "topping", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "toppings", cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JsonBackReference
     private Set<Category> categories = new HashSet<>();
 }

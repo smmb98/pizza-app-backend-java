@@ -1,7 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dev.mohibullah.pizzaappbackendjava.models.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +16,6 @@ import java.util.List;
 public class ToppingResponseDTO extends BaseResponseDTO {
     private String name;
     private Double price;
-    private List<Category> categories;
+    private List<CategoryResponseDTO> categories;
     private int id;
 }
