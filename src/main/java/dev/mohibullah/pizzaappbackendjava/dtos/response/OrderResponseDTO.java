@@ -2,7 +2,6 @@ package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.mohibullah.pizzaappbackendjava.enums.Stage;
-import dev.mohibullah.pizzaappbackendjava.models.OrderItem;
 import dev.mohibullah.pizzaappbackendjava.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +29,5 @@ public class OrderResponseDTO extends BaseResponseDTO {
     private String instruction;
     private User createdBy;
     private User updatedBy;
-    private List<OrderItem> orderItem = new ArrayList<>();
+    private List<OrderItemResponseDTO> orderItem = new ArrayList<>();
 }

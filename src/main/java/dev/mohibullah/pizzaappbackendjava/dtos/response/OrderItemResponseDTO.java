@@ -1,9 +1,6 @@
 package dev.mohibullah.pizzaappbackendjava.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dev.mohibullah.pizzaappbackendjava.models.Product;
-import dev.mohibullah.pizzaappbackendjava.models.Size;
-import dev.mohibullah.pizzaappbackendjava.models.Topping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,9 +22,9 @@ public class OrderItemResponseDTO extends BaseResponseDTO {
     private String sizeMeasurement;
     private String sizeDescription;
     private String productName;
-    private List<Topping> topping = new ArrayList<>();
-    private Product product;
-    private Size size;
+    private List<ToppingResponseDTO> topping = new ArrayList<>();
+    private ProductResponseDTO product;
+    private SizeResponseDTO size;
 
 }
 

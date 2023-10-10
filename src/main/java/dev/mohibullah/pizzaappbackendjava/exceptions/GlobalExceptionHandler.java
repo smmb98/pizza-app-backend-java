@@ -78,6 +78,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(OrderStageException.class)
+    public ResponseEntity<Map<String, String>> handleOrderStageUpdateException(OrderStageException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(EmptyItemsListException.class)
     public ResponseEntity<Map<String, String>> handleEmptyItemsListException(EmptyItemsListException ex) {
         Map<String, String> errorResponse = new HashMap<>();
