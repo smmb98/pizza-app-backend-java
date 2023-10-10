@@ -27,6 +27,8 @@ public class SettingResponseDTO extends BaseResponseDTO {
     private String restaurant_cuisines;
     private String restaurant_location;
     private String restaurant_name;
+    private String restaurant_LOGO_Name;
+    private String restaurant_SplashImage_Name;
     private RestaurantTiming24HourFormat restaurant_timing_24HourFormat;
 
     @Data

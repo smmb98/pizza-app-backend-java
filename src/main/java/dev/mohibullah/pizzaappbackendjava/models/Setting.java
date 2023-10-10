@@ -2,13 +2,11 @@ package dev.mohibullah.pizzaappbackendjava.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,12 +43,6 @@ public class Setting extends Base {
     @Column
     private String restaurant_socialLinks;
 
-//    @Column(nullable = false)
-//    private String restaurant_LOGO_UUID;
-//
-//    @Column(nullable = false)
-//    private String restaurant_LOGO_Name;
-
     @Column(nullable = false)
     private String restaurant_cuisines;
 
@@ -59,11 +51,5 @@ public class Setting extends Base {
 
     @Column(nullable = false)
     private String restaurant_name;
-
-//    @Column(nullable = false)
-//    private String restaurant_SplashImage_UUID;
-//
-//    @Column(nullable = false)
-//    private String restaurant_SplashImage_Name;
 
 }

@@ -10,6 +10,7 @@ import dev.mohibullah.pizzaappbackendjava.exceptions.ItemNotFoundException;
 import dev.mohibullah.pizzaappbackendjava.models.*;
 import dev.mohibullah.pizzaappbackendjava.repositories.*;
 import dev.mohibullah.pizzaappbackendjava.services.Interfaces.ProductServiceInterface;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -212,6 +213,7 @@ public class ProductServiceImplementation implements ProductServiceInterface {
         return product;
     }
 
+    @Transactional
     private Product mapToEntity(ProductRequestDTO productRequestDTO, Product product) throws IOException {
         product.setName(productRequestDTO.getName());
         product.setImageName(productRequestDTO.getName().replace(" ", "_") + ".webp");
@@ -269,7 +271,13 @@ public class ProductServiceImplementation implements ProductServiceInterface {
                     productsSizesPricesRepository.save(products_sizes_prices);
                 } else {
                     System.out.println("On Delete");
-                    productsSizesPricesRepository.delete(products_sizes_prices); // This delete command is not working, even though above code executes
+                    try {
+                        productsSizesPricesRepository.delete(products_sizes_prices);
+                        productsSizesPricesRepository.deleteByIdSql(products_sizes_prices.getId());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+//                    productsSizesPricesRepository.delete(products_sizes_prices); // This delete command is not working, even though above code executes
                 }
             } else {
                 Products_Sizes_Prices products_sizes_prices = new Products_Sizes_Prices();
