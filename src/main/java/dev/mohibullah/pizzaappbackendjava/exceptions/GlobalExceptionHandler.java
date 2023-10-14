@@ -71,6 +71,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(InvalidDateFormatException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidDateFormatException(InvalidDateFormatException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleItemNotFoundException(ItemNotFoundException ex) {
         Map<String, String> errorResponse = new HashMap<>();

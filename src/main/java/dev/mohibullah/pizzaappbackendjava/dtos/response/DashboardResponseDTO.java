@@ -16,7 +16,7 @@ public class DashboardResponseDTO {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class OrderData {
+    public static class OrderData {
         private int total_orders;
         private int inprogress_orders;
         private int completed_orders;
@@ -26,7 +26,7 @@ public class DashboardResponseDTO {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class LineGraphData {
+    public static class LineGraphData {
         private String name;
         private List<List<Long>> data;
         private String color;
