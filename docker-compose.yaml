@@ -1,6 +1,16 @@
 version: "3.8"
 services:
-  postgres:
+  app:
+    build: .
+    restart: always
+    environment:
+      - spring.datasource.url=jdbc:postgresql://postgresdb:5432/pizza_app_java?allowPublicKeyRetrieval=true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgresdb
+
+  postgresdb:
     image: postgres:latest
     ports:
       - "5432:5432"
