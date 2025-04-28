@@ -24,6 +24,8 @@ public class PizzaAppBackendJavaApplication {
 		return args -> {
 			System.out.println("\n\nServer started on http://localhost:" + serverPort);
 			System.out.println("Database running on " + databaseUrl + "\n\n");
+			System.out.println("Swagger UI running on " + "http://localhost:" + serverPort + "/swagger-ui.html" + "\n\n");
+			System.out.println("Swagger document on " + "http://localhost:" + serverPort + "/v3/api-docs" + "\n\n");
 		};
 	}
 
